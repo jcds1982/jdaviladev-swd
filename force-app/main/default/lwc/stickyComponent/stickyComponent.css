@@ -1,0 +1,10 @@
+.pinned_panel {
+  z-index: 999;
+  top: 25%;
+  right: 2%;
+  width: 30vw;
+  position: fixed;
+  transition: width 0.5s ease-in-out;
+  box-shadow: 1px 2px 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+}

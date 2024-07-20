@@ -1,0 +1,62 @@
+/**
+ * Created by julioda on 11/1/19.
+ */
+
+
+.THIS.ecContainer {
+    display: flex;
+    background-color: #F9F9F9;
+    flex-direction: column;
+    z-index: 3;
+    overflow: auto;
+    border-radius: 10px;
+    transition: all 0.3s;
+    padding: 2em;
+}
+
+.THIS .ecElement {
+    margin-top: 1.8em;
+    position: relative;
+}
+
+.THIS.ErrorBanner_Container{
+    width: 100%;
+}
+
+
+.THIS .ErrorBanner_Content{
+    background-color: #EB2A3C;
+    color: #ffffff;
+    font-size: 1em;
+    padding: 2em;
+}
+
+.THIS .ErrorBanner_Title{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.THIS .ErrorBanner_Element{
+    list-style: circle;
+    margin-left: 15px;
+}
+
+.THIS .Error_highlight{
+    border-bottom: 2px solid #EB2A3C;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.THIS .Error_highlight::before {
+    content: '* ';
+    color: #EB2A3C;
+}
+
+.THIS .ecButtonStrip {
+    display: flex;
+    flex-direction: row;
+}
+
+.THIS.ecButtonStrip_button {
+    margin-right: 1em;
+}

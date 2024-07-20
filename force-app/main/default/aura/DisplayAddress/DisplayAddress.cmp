@@ -1,0 +1,23 @@
+<aura:component >
+  
+    
+    <aura:attribute name="Street" type="String" default="3050" />
+    <aura:attribute name="City" type="String"  default="Weston" />
+    <aura:attribute name="State" type="String" default="FL" />
+    <aura:attribute name="PostalCode" type="String" default="33312" />
+    
+    
+    
+    <ul>
+        <li>Street: {!v.Street}</li>
+    	<li>City: {!v.City}</li>
+        <li>State: {!v.State}</li>
+        <li>Postal Code: {!v.PostalCode}</li>
+    </ul>
+    
+    <br/>
+    <ui:button label="Check" press="{!c.checkBrowser}" />
+    
+     
+ 
+</aura:component>

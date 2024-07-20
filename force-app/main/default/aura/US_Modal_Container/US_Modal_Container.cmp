@@ -1,0 +1,31 @@
+<!--
+ - Created by julioda on 9/15/17.
+ -->
+
+<aura:component description="US_Modal_Container">
+
+
+    <aura:attribute type="string" name="Header_Title" />
+    <aura:attribute type="string" name="Footer_Title" />
+
+    <div class="Modal__container">
+
+
+        <!--MODAL HEADER-->
+        <div style="height: 5%; position: relative;">
+            <c:US_Modal_Header title="{!v.Header_Title}" />
+        </div>
+        <!--MODAL BODY-->
+        <div style="height: 90%; position: relative; padding: 10px; overflow-y: scroll;">
+            <c:US_Modal_Body />
+        </div>
+
+        <!--MODAL FOOTER-->
+        <div style="height: 5%; position: relative;">
+            <c:US_Modal_Footer />
+        </div>
+
+    </div>
+
+
+</aura:component>

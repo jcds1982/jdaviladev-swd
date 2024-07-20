@@ -1,0 +1,51 @@
+h2.THIS {
+     color: magenta;
+     background-color: white;
+ }
+
+ .THIS.paragraph {
+     color: darkblue;
+     background-color: white;
+ }
+
+ #divId.THIS {
+     color: cyan;
+     background-color: white;
+ }
+
+ .THIS {
+     background-color: red;
+ }
+
+ .THIS h3 {
+     color: white;
+     background-color: green;
+ }
+
+ .THIS .StyleTabparagraph {
+     color: pink;
+     background-color: green;
+ }
+
+ .THIS #StyledivId {
+     color: skyblue;
+     background-color: green;
+ }
+
+ /* This is for top level CSS*/
+ h4.THIS {
+     color: gold;
+ }
+
+ #p.THIS {
+     color: green;
+ }
+
+ /* This is for nested level CSS*/
+ .THIS h4 {
+     color: gray;
+ }
+
+ .THIS #p {
+     color: yellow;
+ }

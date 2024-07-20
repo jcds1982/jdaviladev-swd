@@ -1,0 +1,13 @@
+<aura:component >
+    
+    <aura:attribute name="totalOutput" type="String" default="0"/>
+    <ui:inputNumber aura:Id="inputOne" label="Input One" value=""/>
+    <ui:inputNumber aura:Id="inputTwo" label="Input Two" value=""/>
+    <ui:inputNumber aura:Id="inputThree" label="Input Three" value=""/>
+    <br/>
+    <ui:button label="calculate now" press="{!c.calculate}" />
+    <br/>
+    <br/>    
+    Total: <ui:outputNumber aura:Id="totalValue" value="{!v.totalOutput}"  />
+
+</aura:component>

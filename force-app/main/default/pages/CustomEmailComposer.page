@@ -1,0 +1,608 @@
+<apex:page id="CustomEmailComposer" controller="CustomEmailComposer_Controller" sidebar="false" showHeader="false" applyHtmlTag="false">
+
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+    <apex:slds />
+    <apex:includeLightning />
+
+    <style>
+        .ecContainer {
+            display: flex;
+            background-color: #F9F9F9;
+            flex-direction: column;
+            z-index: 3;
+            padding: 20px;
+            overflow: auto;
+            border-radius: 10px;
+            transition: all 0.3s;
+            width: 80%;
+        }
+
+        .ecElement {
+            margin-top: 0.8em;
+            position: relative;
+        }
+
+        .ecElement input[type="text"] {
+            width: 60%;
+            padding: 10px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid #888888;
+            outline: none;
+        }
+
+        .ecSelectOption {
+            width: 60%;
+            padding-left: 10px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid #888888;
+            outline: none;
+        }
+
+        .ecElementContainer {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ecElementLabelAndField {
+            padding: 2px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+
+        }
+
+        .ecCCAddess {
+            padding: 2px;
+            position: absolute;
+            top: 5px;
+            right: 30px;
+            width: 40%;
+            color: #3C5391;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .ecBtn {
+            padding: 10px !important;
+            color: #ffffff !important;
+            background-color: #295392 !important;
+            border-radius: 5px !important;
+            border: transparent !important;
+        }
+
+        .ecBtn:hover {
+            opacity: 0.8;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        @-webkit-keyframes spin {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg)
+            }
+        }
+
+        @-moz-keyframes spin {
+            from {
+                -moz-transform: rotate(0deg);
+            }
+            to {
+                -moz-transform: rotate(360deg)
+            }
+        }
+
+        .spinner {
+            position: absolute;
+            border-radius: 100%;
+            border: 4px solid #bbb;
+            border-top: 4px solid #004386;
+            border-bottom: 4px solid #004386;
+            height: 15px;
+            width: 15px;
+            animation: spin 0.7s linear infinite;
+            top: 9px;
+            left: 27%;
+        }
+
+        .ecPillContainer {
+            margin-top: 10px;
+            float: left;
+        }
+
+        .ecPill {
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 20px;
+            border: transparent;
+            width: 10%;
+            overflow: hidden;
+            height: 5px;
+            background-color: #0073e6;
+            color: #ffffff;
+            margin-right: 5px;
+        }
+
+        .ecPillRemove {
+            text-decoration: none !important;
+            color: #ffffff !important;
+        }
+
+        .ecTempContactList {
+            background-color: #fff;
+            padding: 5px;
+            max-height: 350px;
+            border: 1px solid lightgray;
+            border-radius: 4px;
+            width: 60%;
+            overflow-y: auto;
+        }
+
+        .ecTempContactContainer {
+            margin-bottom: 10px;
+            padding: 5px;
+            position: relative;
+        }
+
+        .ecTempContactContainer:hover {
+            cursor: pointer;
+
+            background-color: #dddddd;
+        }
+
+        .ecTempContactName {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555555;
+        }
+
+        .ecTempContactEmail {
+            font-size: 13px;
+            color: #999999;
+        }
+
+        .ecIcon {
+            margin-left: 30px;
+            cursor: pointer;
+        }
+
+        .ecCCContact {
+            padding: 2px;
+            position: absolute;
+            top: 15px;
+            right: 30px;
+            width: 0%;
+            color: #3C5391;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .ecInfo{
+            pading: 0px;
+            border: 1px solid #32548E;
+            color: #fff;
+            background-color: #32548E;
+            border-radius: 50px;
+            height: 13px;
+            width: 13px;
+            font-size: 8px;
+            text-align: center;
+            top: 3px;
+            left: 5px;
+            position: relative;
+            font-weight: bold;
+        }
+
+        .ecErrorMSGFileHighlight{
+            border: 1px solid red !important;
+        }
+
+        .spinnerStatuscontainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            Top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .spinnerStatus {
+            display: block;
+            position: relative;
+            border-radius: 100%;
+            border-top: 7px solid transparent;
+            border-left: 7px solid #529312;
+            border-right: 7px solid #529312;
+            border-bottom: 7px solid #529312;
+            height: 65px;
+            width: 65px;
+            animation: spin 0.7s linear infinite;
+        }
+
+        .ErrorBanner_Container{
+            width: 100%;
+        }
+        .ErrorBanner_Content{
+            background-color: #EB2A3C;
+            color: #ffffff;
+            font-size: 1em;
+            padding: 2em;
+        }
+        .ErrorBanner_Title{
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .ErrorBanner_Element{
+            list-style: circle;
+            margin-left: 15px;
+        }
+
+        .tooltip {
+        position: relative;
+        display: inline-block;
+        /*   border-bottom: 1px dotted black; */
+        }
+
+        .tooltip .tooltiptext {
+        visibility: hidden;
+        min-width: 220px;
+        max-width: 600px;
+        font-size: 10px;
+        /*   max-width: 100%; */
+        background-color: #32548E;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        /* Position the tooltip */
+        position: absolute;
+        top: -15px;
+        left: 30px;
+        overflow-wrap: break-word !important;
+        }
+
+        .tooltip:hover .tooltiptext {
+        visibility: visible;
+        z-index: 999;
+        }
+
+        .ec__Title_Container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: left;
+            margin-top: 20px;
+
+        }
+
+        .ec__link {
+            color: #428bca;
+            text-decoration: none;
+        }
+    </style>
+
+    <body class="slds-scope">
+
+        <apex:variable value="" var="Attachment" rendered="{!!ecEnterAttachment}">
+
+            <apex:form id="form1">
+                <div id="MainContainer" class="ecContainer">
+
+
+                    <apex:actionFunction name="test" reRender="emailAddressTo" action="{!GetContact}"></apex:actionFunction>
+                    <apex:actionFunction name="SetEmailTemplateBody" action="{!SetEmailTemplateBody}"></apex:actionFunction>
+                    <apex:actionFunction name="AccessAttachmentOrGoback" action="{!AccessAttachmentOrGoback}"></apex:actionFunction>
+                    <apex:actionFunction name="AddEmail" action="{!AddEmail}" reRender="emailList,ccEmailList,emailAddressTo,AddAttachmentsURL">
+                        <apex:param value="" name="recipientType" />
+                    </apex:actionFunction>
+                    <apex:actionFunction name="AddContact" action="{!AddContact}" reRender="emailList,ccEmailList,emailAddressTo,AddAttachmentsURL">
+                        <apex:param value="" name="contName" />
+                        <apex:param value="" name="contEmail" />
+                        <apex:param value="" name="recipientType" />
+                    </apex:actionFunction>
+                    <apex:actionFunction name="GetContacts" action="{!GetContacts}" reRender="contactList" oncomplete="PrepareContactList()">
+                        <apex:param value="" name="contName" />
+                    </apex:actionFunction>
+                    <apex:actionFunction name="RemoveEmail" action="{!RemoveEmail}" reRender="emailList,ccEmailList,emailAddressTo,AddAttachmentsURL">
+                        <apex:param value="" name="emailToRemove" />
+                        <apex:param value="" name="recipientType" />
+                    </apex:actionFunction>
+
+
+                    <div class="ec__Title_Container">
+                        <span class="slds-icon_container slds-icon_container_circle slds-icon-action-email" title="Email Composer">
+                            <svg class="slds-icon" aria-hidden="true">
+                                <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/action-sprite/svg/symbols.svg#email')}"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Email Composer</span>
+                        </span>
+                        <div class="slds-text-heading_large" style="color: #333333; margin-left: 10px;">
+                            <!-- Send Email -->
+                            Email Information
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="ec__Title_Container">
+                        <div class="slds-text-heading_small" style="color: #0e457a; margin-left: 10px;">
+                            <a class="ec__link" href="#" onclick=""> <!-- parent.GoBackToTask('Go back to task or subtask', '{!projectId}','{!milestoneId}', '{!taskId}','{!subtaskId}','{!todoId}'); -->
+                                ← Back to Console</a>
+                        </div>
+                    </div>
+
+
+                    <!-- To Email address -->
+                    <div class="ecElement">
+                        <apex:outputPanel id="errorMessages" rendered="{!showErrorMessage}">
+                            <apex:outputPanel >
+                                <div class="ErrorBanner_Container">
+                                    <div class="ErrorBanner_Content">
+                                        <span class="ErrorBanner_Title">Action required</span>
+                                        <ul>
+                                            <apex:repeat var="errorMsg" value="{!errorMessages}" >
+                                                <li class="ErrorBanner_Element">{!errorMsg}</li>
+                                            </apex:repeat>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </div>
+
+
+
+                    <div class="ecElement">
+                        <apex:outputPanel id="emailAddressTo">
+                            <apex:outputPanel >
+                                <div class="ecElementContainer">
+
+                                    <div class="ecElementLabelAndField">Recipient:
+                                        <div class="tooltip">
+                                            <span data-id="att1-tooltip" class="tooltiptext">Type the name of the contact and select from list OR type the email address and press enter.</span>
+                                            <div class="ecInfo">i</div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="ecElementLabelAndField">
+                                        <apex:inputText value="{!ecToAddress}" html-placeholder="Add Recipient..." label="Recipient" styleClass="{!IF(ecRecipientError, 'ecErrorMSGFileHighlight','')}" html-data-id="ecToAddress" onKeyUp="GetContactListOrEmail(event);"
+                                        />
+                                        <div id="spinner" class="spinner hide" data-id="spinner"></div>
+                                        <div id="ccEmailAddress" data-id="ccEmailAddress" class="ecCCAddess hide">
+                                            <span onclick="AddEmail('cc');">CC</span>
+                                        </div>
+                                    </div>
+                                    <apex:outputPanel id="contactList">
+                                        <apex:outputPanel >
+                                            <div class="ecElementLabelAndField" data-id="contactPanel">
+                                                <!-- Add List of contacts and refresh -->
+                                                <apex:variable var="ShowTempContactList" value="" rendered="{!tempSearchContactsEmails.size > 0}">
+                                                    <div id="tempContactList" data-id="tempContactList" class="ecTempContactList hide">
+                                                        <ul>
+                                                            <apex:repeat value="{!tempSearchContactsEmails}" var="cnt">
+                                                                <li>
+                                                                    <div class="ecTempContactContainer">
+                                                                        <div class="ecCCContact" onclick="AddContact('{!cnt.name}','{!cnt.email}', 'cc')">CC</div>
+                                                                        <div onclick="AddContact('{!cnt.name}','{!cnt.email}', 'to')">
+                                                                            <span class="ecTempContactName">{!cnt.name}</span>
+                                                                            <br/>
+                                                                            <span class="ecTempContactEmail">{!cnt.email}</span>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </li>
+                                                            </apex:repeat>
+                                                        </ul>
+                                                    </div>
+                                                </apex:variable>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </div>
+
+                    <div class="ecElement">
+                        <apex:outputPanel id="emailList">
+                            <apex:outputPanel >
+                                <apex:variable var="contactList" value="" rendered="{!contactsEmails.size > 0}">
+                                    <div class="ecElementLabelAndField">Recipients:</div> 
+                                    <apex:repeat value="{!contactsEmails}" var="ce">
+                                        <div class="ecPillContainer">
+                                            <span class="ecPill">{!ce.name} |
+                                                <a href="#" class="ecPillRemove" onclick="RemoveEmail('{!ce.email}','to');">x</a>
+                                            </span>
+                                        </div>
+                                    </apex:repeat>
+                                </apex:variable>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </div>
+
+
+                    <div class="ecElement">
+                        <apex:outputPanel id="ccEmailList">
+                            <apex:outputPanel >
+                                <apex:variable var="ccContactList" value="" rendered="{!ccContactsEmails.size > 0}">
+                                    <div class="ecElementLabelAndField">CC Recipients:</div>
+                                    <apex:repeat value="{!ccContactsEmails}" var="ccCE">
+                                        <div class="ecPillContainer">
+                                            <span class="ecPill">{!ccCE.name} |
+                                                <a href="#" class="ecPillRemove" onclick="RemoveEmail('{!ccCE.email}','cc');">x</a>
+                                            </span>
+                                        </div>
+                                    </apex:repeat>
+                                </apex:variable>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </div>
+
+
+
+                    <div id="emailTemplate" class="ecElement">
+                        <div class="ecElementContainer">
+                            <div class="ecElementLabelAndField">Email Template:</div>
+                            <div class="ecElementLabelAndField">
+                                <apex:selectList value="{!ecEmailTemplateSelected}" size="1" styleClass="ecSelectOption" onChange="javascript: SetEmailTemplateBody();">
+                                    <apex:selectOptions value="{!templates}" />
+                                </apex:selectList>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="emailTemplate" class="ecElement">
+                        <div class="ecElementContainer slds-scope">
+                            <div class="ecElementLabelAndField">Subject:</div>
+                            <div class="ecElementLabelAndField">
+                                <apex:inputText value="{!ecSubject}" html-placeholder="Enter subject..." label="Subject" styleClass="{!IF(ecSubjectError, 'ecErrorMSGFileHighlight','')}" />
+                                
+                                <span class="ecIcon slds-icon_container slds-icon-utility-attach" title="Attach Files">
+                                    <svg class="slds-icon slds-icon-text-default slds-icon_small" aria-hidden="true">
+                                        <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#attach')}"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Attach Files</span>
+                                </span>
+                                <span>
+                                    <apex:outputPanel id="AddAttachmentsURL">
+                                        <apex:outputPanel >
+                                            <div class="ecElementLabelAndField"><a href="#" onclick="{!IF(contactsEmails.empty, '', 'AccessAttachmentOrGoback();')}">Attach Files</a>
+                                                <div class="tooltip">
+                                                    <span data-id="att1-tooltip" class="tooltiptext">You can only attach files after entering a recipient, subject and message.</span>
+                                                    <div class="ecInfo">i</div>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </span>
+                                    
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="ecElement {!IF(ecBodyError, 'ecErrorMSGFileHighlight','')}">
+                        <apex:outputPanel id="emailBody">
+                            <apex:outputPanel > 
+                                
+                                <apex:inputTextarea richText="true" value="{!ecBody}" label="Subject" html-placeholder="Enter message here..." />
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </div>
+                </div>
+
+                <apex:actionFunction name="SendEmail" action="{!SendEmail}" status="statusSpinner"/>
+                <apex:actionStatus id="statusSpinner">
+                    <apex:facet name="start">
+                        <div class="spinnerStatuscontainer" id="spinnerStatuscontainer">
+                            <div class="spinnerStatus" id="spinnerStatus"></div>
+                        </div>
+                    </apex:facet>
+                </apex:actionStatus>
+                
+                <div id="SendEmailContainer" class="ecContainer">
+                    <div class="ecElement">
+                        <apex:outputPanel id="sendEmail">
+                            <apex:outputPanel >
+                                <input type="button" class="ecBtn" value="Send Email" onclick="SendEmail();" />
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </div>
+                </div>
+            </apex:form>
+        </apex:variable>
+
+
+        <!-- <apex:form >
+            <apex:actionFunction name="SendEmail" action="{!SendEmail}" status="statusSpinner" reRender="sendEmail" />
+            <apex:actionStatus id="statusSpinner">
+                <apex:facet name="start">
+                    <div class="spinnerStatuscontainer" id="spinnerStatuscontainer">
+                        <div class="spinnerStatus" id="spinnerStatus"></div>
+                    </div>
+                </apex:facet>
+            </apex:actionStatus>
+
+            <div id="SendEmailContainer" class="ecContainer">
+                <div class="ecElement">
+                    <apex:outputPanel id="sendEmail">
+                        <apex:outputPanel >
+                            <input type="button" class="ecBtn" value="Send Email" onclick="SendEmail();" />
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+            </div>
+
+
+        </apex:form> -->
+
+
+    </body>
+
+    <script>
+        let getContactTimeout;
+
+        function GetContactListOrEmail(e) {
+            let key = e.keyCode;
+            let recipient = document.querySelector('[data-id=ecToAddress').value;
+            let contactPanel = document.querySelector('[data-id=contactPanel');
+            let tempContactList = document.querySelector('[data-id=tempContactList]');
+            let spinner = document.querySelector('[data-id=spinner]');
+            let ccEmailAddress = document.querySelector('[data-id=ccEmailAddress]');
+            let result = recipient.search(/^[^*{}~$;:=!?,`#<>%\(\)\[\]\/\s@]+@[^*{}~$;:=!?,`#<>%\(\)\[\]\/\s@]+\.[^*{}~$;:=!?,`#<>%\(\)\[\]\/\s@]+$/);
+            console.log('result -->', result);
+
+            clearTimeout(getContactTimeout);
+            if (recipient.length > 0 && result !== 0) {
+                spinner.classList.remove('hide');
+                ccEmailAddress.classList.add('hide');
+                getContactTimeout = setTimeout(function () { GetContacts(recipient); }, 300);
+            } else {
+                //clearTimeout(getContactTimeout);
+                contactPanel.classList.add('hide');
+                //tempContactList.classList.add('hide');
+                spinner.classList.add('hide');
+            }
+
+            if (result === 0) {
+                console.log('entered email');
+                spinner.classList.add('hide');
+                contactPanel.classList.add('hide');
+                ccEmailAddress.classList.remove('hide');
+
+                if (key === 13) { // PRESS ENTER
+                    // contactPanel.classList.add('hide');
+                    console.log('Result ', result);
+                    console.log('You pressed Enter');
+                    AddEmail('to');
+                }
+            }
+        }
+
+        function PrepareContactList() {
+            console.log('Entering Contact List READY');
+            document.querySelector('[data-id=contactPanel').classList.remove('hide');
+            document.querySelector('[data-id=spinner]').classList.add('hide');
+            document.querySelector('[data-id=tempContactList]').classList.remove('hide');
+
+
+        }
+    </script>
+
+    </html>
+
+
+
+</apex:page>

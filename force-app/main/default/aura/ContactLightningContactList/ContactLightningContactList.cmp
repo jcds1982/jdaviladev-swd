@@ -1,0 +1,53 @@
+<aura:component controller="ContactLightning_Controller" implements="force:appHostable,flexipage:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" >
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+	<aura:attribute name="Contacts" type="Contact[]" />
+    <aura:attribute name="DefaultMode" type="map" default="{}" /> 
+    <aura:attribute name="defaultString" type="string" default="12345"  /> 
+	
+	<h1>Contact List</h1>
+	<table class="slds-table">
+		<thead>
+			<th>Name</th>
+			<!-- <th>Name ID </th> -->
+			<th>Email</th>
+			<th>Phone</th>
+		</thead>
+
+		<aura:iteration items="{!v.Contacts}" var="cont">
+			<tr>
+				<!-- <td id="{!cont.Id}"><ui:outputText class="{!cont.Id}" value="{!cont.FirstName + ' ' + cont.LastName}" aura:Id="{!cont.Id}" click="{!c.getContactInfo}"/> </td> -->
+				<td id="{!cont.Id}"><a data-contacid="{!cont.Id}" href="" onclick="{!c.getContactInfo}" >{!cont.FirstName + ' ' + cont.LastName}</a></td>
+				<td><a data-email="{!cont.Email}" label="{!cont.Email}" onclick="{!c.showMessage}" >{!cont.Email}</a></td> <!--  -->
+				<td><ui:outputText value="{!cont.Phone}" click="{!c.showOtherMessage}" title="{!cont.Id + ' this field shows the Contact phone number'}" />
+				</td> <!--  -->
+			</tr>
+		</aura:iteration>
+
+	</table>
+
+	<!--Open Modal -->
+    <!--<button class="slds-button slds-button&#45;&#45;neutral" onclick="{!c.showModal}">Open Modal</button>-->
+	
+	<!--MODAL -->
+    <div id="newClientSectionId" class="Modal_background">
+        <div class="Modal_Container">
+			<!-- Header -->
+            <div class="Modal_header">
+                <h2 id="header43" >Contact Information</h2>
+            </div>
+			<!-- Modal Content -->
+            <div class="Modal_Content">
+                <div>
+                    <c:ContactLightningDetail />
+                </div>
+            </div>
+			<!-- Footer -->
+            <div class="Modal_footer">
+                <input type="button" onclick="{!c.hideModal}" value="Close" class="Modal_button" />
+            </div>
+        </div>
+    </div>
+    <!-- END - MODAL -->
+
+</aura:component>

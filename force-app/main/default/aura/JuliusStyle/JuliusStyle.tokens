@@ -1,0 +1,12 @@
+<aura:tokens extends="c:SWDStyles">
+    <aura:token name="UltiColorTest" value="#529412" />
+    <aura:token name="Modal_padding" value="10px" />
+    <aura:token name="Modal_general_radius" value="10px" />
+    <aura:token name="Header_font_color" value="#ffffff" />
+    <aura:token name="Header_font_size" value="20px" />
+    <aura:token name="Footer_background_color" value="#DFDFDF" />
+    <aura:token name="Modal_button_color" value="#00A2E1" />
+    <aura:token name="Modal_button_font_size" value="14px" />
+    <aura:token name="Modal_button_font_color" value="#ffffff" />
+    <aura:token name="Modal_button_radius" value="5px" />
+</aura:tokens>

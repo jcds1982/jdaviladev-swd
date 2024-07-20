@@ -1,0 +1,5 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <div>
+        <lightning:flow aura:id="flowData" />
+    </div>
+</aura:component>

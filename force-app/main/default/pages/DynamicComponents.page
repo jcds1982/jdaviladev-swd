@@ -1,0 +1,14 @@
+<apex:page standardController="Account" extensions="DynComp_Controller">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Test Dynamic Components</h1>
+  <h3>Julio Davila 05.27.2016</h3>
+  <!-- End Default Content REMOVE THIS -->
+   <apex:form >
+    <!-- <apex:inputText label='test' value="{!name}"/> -->
+     <apex:dynamicComponent componentValue="{!CreateDynCmp}"/>
+     <apex:dynamicComponent componentValue="{!CreateDynCmp}"/>
+     <apex:dynamicComponent componentValue="{!CreateDynCmp}"/>
+      
+
+  </apex:form>
+</apex:page>

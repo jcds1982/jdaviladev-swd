@@ -1,0 +1,361 @@
+<apex:page sidebar="false" showHeader="false" showChat="false" standardStylesheets="false"
+    controller="VFLookup_Controller">
+    <!-- Begin Default Content REMOVE THIS -->
+
+    <style>
+
+        html{
+            font-family: sans-serif !important;
+        }
+        @keyframes Expanding_Panel {
+            from {
+                max-height: 0px;
+            }
+
+            to {
+                max-height: 250px;
+            }
+        }
+
+
+        @keyframes Collapsing_Panel {
+            0% {
+                max-height: 250px;
+                border: 1px solid #bbb;
+            }
+
+            100% {
+                max-height: 0px;
+                border: 1px solid #bbb;
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        .custom_lookup {
+            width: 400px;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #bbb;
+            height: 17px;
+            /* 25px*/
+        }
+
+        .button {
+            padding: 1rem !important;
+            background: #E6EDEC !important;
+            background-color: transparent !important;
+            font-size: 14px;
+            text-decoration: none;
+            vertical-align: middle;
+            background-color: transparent !important;
+            padding: 1rem !important;
+            border-radius: 5px !important;
+            border: solid 1px #DBDBDB !important;
+            color: rgb(80, 158, 47) !important;
+            text-decoration: none !important;
+            outline: 0 !important;
+        }
+
+        .button:hover {
+            background-color: #EEF5EA !important;
+            background: #EEF5EA !important;
+            border: solid 1px #DBDBDB !important;
+        }
+
+        .button:active {
+            background: #E6EDEC !important;
+            box-shadow: none !important;
+            background-color: #E6EDEC !important;
+            border: solid 1px #DBDBDB !important;
+        }
+
+        .panel {
+            display: block !important;
+            padding: 11px;
+            border: 1px solid #bbb;
+            width: 400px;
+            max-height: 250px;
+            overflow-y: auto;
+            border-radius: 5px;
+            margin-top: 2px;
+            animation: Expanding_Panel;
+            animation-duration: 1s;
+        }
+
+
+        .collapse {
+
+            display: block;
+            padding: 0px;
+            width: 400px;
+            padding: 11px;
+            max-height: 0px;
+            overflow-y: hidden;
+            border-radius: 5px;
+            margin-top: 2px;
+            animation: Collapsing_Panel;
+            animation-duration: 0.3s;
+        }
+
+        .contact_ul_style {
+            padding: 5px;
+        }
+
+        .contact_li_style {
+            padding: 5px;
+            list-style-type: none;
+        }
+
+        .panel li:hover {
+            background-color: #F6FAF5;
+            border-radius: 5px;
+
+        }
+
+        .custom_lookup_pac {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .spinner {
+            border-bottom: 10px solid rgb(80, 158, 47);
+            border-right: 10px solid #DBDBDB;
+            border-top: 10px solid #DBDBDB;
+            border-left: 10px solid rgb(80, 158, 47);
+            height: 25px;
+            width: 25px;
+            border-radius: 100px;
+            animation: spin 0.9s linear infinite;
+            margin-left: -23px;
+        }
+
+        .hide {
+            display: none !important;
+        }
+
+        .hide_Text {
+            opacity: 0;
+        }
+
+        .center_content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .center_content div {
+            padding: 0.5em;
+        }
+
+        .close_text {
+            font-size: 12px;
+            text-decoration-style: none;
+            color: #009DD9;
+            cursor: pointer;
+        }
+
+        .not_found_text {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .contact_selected {
+            display: block;
+
+        }
+
+        .contact_selected::after {
+            position: absolute;
+            content: attr(data-value);
+            font-weight: bold;
+            font-size: 15px;
+            margin-top: 4px;
+            margin-left: 7px;
+            background-color: #F6FAF5;
+            width: 395px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid lightgray;
+            color: rgb(80, 158, 47) !important;
+        }
+
+        .contact_title {
+            font-size: 16px;
+            color: #59595B;   
+            /* #59595B  555555*/
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        .account_subtitle {
+            font-size: 12px;
+            color: lightgray;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* .contact_selected:active:after {
+            background-color: rgb(80, 158, 47) !important;
+            color: #fff !important;
+        } */
+    </style>
+
+    <h1>Custom LookUp - Test</h1>
+    <br />
+
+    <apex:form >
+
+        <apex:actionFunction action="{!UpdateContactList}" name="af_GetContacts" reRender="listOfValues" oncomplete="">
+            <apex:param value="" name="contName" />
+        </apex:actionFunction>
+
+        <h4>Custom Lookup 1</h4>
+        <div>
+            <!-- <input type="text" value="great!" class="custom_lookup" /> -->
+            <div class="custom_lookup_pac">
+                <div>
+                    <span id="spanSelected" class="hide" data-value="">
+                        <span
+                            style="cursor: pointer; position: absolute; margin-top: 15px; margin-left: 390px; z-index: 999; color: rgb(80, 158, 47) !important; font-weight: bold;"
+                            onclick="AddRemoveSelectedContact('span-customInputLookUp');">X</span>
+                    </span>
+                    <apex:inputText value="{!cont1.FirstName}" styleClass="custom_lookup" id="customInputLookUp"
+                        onfocus="ClosePanel('customInputLookUp', 'listOfOptions')" html-placeholder="Search Contact..."
+                        onkeypress="BlockSubmit();" />
+                </div>
+                <div style=" margin-left: 5px;">
+                    <input type="button" class="button"
+                        onclick="javascript: ShowOptional('customInputLookUp', 'listOfOptions');" value="Search" />
+                </div>
+            </div>
+
+            <div class="collapse" id="listOfOptions" style="display: none;">
+                <apex:outputPanel id="listOfValues">
+
+                    <div style="position: relative; display: flex; flex-direction:row; max-height: 250px; align-items: center; margin-left: 50%;"
+                        id="spinner" class="hide">
+                        <div class="spinner" />
+                    </div>
+
+                    <apex:outputPanel >
+                        <div id="mainPanel" class="">
+                            <apex:variable var="Search" id="List" value="">
+                                <apex:variable var="" value="" rendered="{!conts.size > 0}">
+                                    <ul class="contact_ul_style" >
+                                        <apex:repeat var="cont" value="{!conts}">
+
+                                            <li class="contact_li_style">
+                                                <div data-lookupId="listOfOptions" href="#" onclick="SelectAndClose('customInputLookUp', '{!cont.FirstName} {!cont.LastName}',
+                                                '{!cont.Id}', 'listOfOptions');">
+                                                    <div>
+                                                        <span class="contact_title" >{!cont.FirstName} {!cont.LastName}
+                                                        </span>
+                                                    </div>
+                                                    <div class="account_subtitle">
+                                                        <span >{!cont.Account.Name}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </apex:repeat>
+                                    </ul>
+                                </apex:variable>
+
+                                <apex:variable var="" value="" rendered="{!conts.size = 0}">
+                                    <div class="center_content">
+                                        <div>
+                                            <span class="not_found_text">No Contacts Found</span>
+                                        </div>
+                                        <div>
+                                            <span class="close_text"
+                                                onclick="ClosePanel('customInputLookUp', 'listOfOptions')">Close</span>
+                                        </div>
+                                    </div>
+                                </apex:variable>
+                            </apex:variable>
+                        </div>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </div>
+        </div>
+
+
+    </apex:form>
+    <!-- End Default Content REMOVE THIS -->
+    <script>
+        function ShowOptional(inputId, panelId) {
+            let panel = document.getElementById(panelId);
+            let cl = document.querySelector('[id*=' + inputId + ']').value;
+            console.log(panel.className.search('panel'));
+
+            if (panel.className.search("panel") == -1) {
+                panel.classList.toggle("panel");
+            }
+
+            if (panel.className.search("collapse") == 0) {
+                panel.classList.toggle("collapse");
+            }
+            panel.style = "";
+            HideSpinner();
+
+            console.log("cl", cl);
+            if (cl == '' || cl == null)
+                cl = 'a';
+
+            console.log('cl --> ' + cl);
+
+            af_GetContacts(cl);
+        }
+
+        function SelectAndClose(custom_Lookup, value_selected, contId, panelId) {
+            let cl = document.querySelector('[id*=' + custom_Lookup + ']').value = value_selected;
+            document.getElementById(panelId).classList.toggle("panel");
+            document.getElementById(panelId).classList.toggle("collapse");
+            document.getElementById('mainPanel').classList.toggle('hide_Text');
+            document.getElementById('spanSelected').setAttribute('data-value', value_selected);
+            AddRemoveSelectedContact(custom_Lookup);
+        }
+
+        function ClosePanel(custom_Lookup, panelId) {
+
+            let panel = document.getElementById(panelId);
+
+            if (panel.className.search("collapse") == -1) {
+                panel.classList.toggle("collapse");
+                panel.classList.toggle("panel");
+                document.getElementById('mainPanel').classList.toggle('hide_Text');
+            }
+        }
+
+        function HideSpinner() {
+            document.getElementById('spinner').classList.toggle('hide');
+            document.getElementById('mainPanel').classList.toggle('hide');
+        }
+
+
+        function AddRemoveSelectedContact(contact_selected) {
+            let spanContactSelected = 'spanSelected'; // + contact_selected;
+            document.getElementById(spanContactSelected).classList.toggle('contact_selected');
+            document.getElementById(spanContactSelected).classList.toggle('hide');
+
+        }
+
+        function BlockSubmit() {
+            if (event.which === 13) {
+                event.preventDefault();
+            }
+        }
+    </script>
+
+</apex:page>

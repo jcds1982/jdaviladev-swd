@@ -1,0 +1,21 @@
+<apex:page controller="ContactsToExcelController" >
+    <!-- contentType="application/vnd.ms-excel#SalesForceExport.xls"-->
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <table>
+        <tr>
+            <td>ID</td>
+        	<td>First Name</td>
+            <td>Last Name</td>
+            <td>Name</td>
+        </tr>
+        <apex:repeat value="{!lst_cont}" var="c">
+            <tr>
+                <td>{!c.Id} ‚ </td>
+                <td>{!c.FirstName}</td>
+                <td>{!c.LastName}</td>
+                <td>{!c.Name}</td>
+            </tr>
+        </apex:repeat> 
+        
+    </table>
+</apex:page>

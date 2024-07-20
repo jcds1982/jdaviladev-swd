@@ -1,0 +1,26 @@
+<template>
+  <template if:true={sticky}>
+    <div
+      data-id="feedback-panel"
+      draggable="true"
+      ondrag={handleDrag}
+      ondrop={handledrop}
+      ondragover={drag_over}
+      onscroll={handlePinPanel}
+      style="height: 10vh; overflow-y: auto"
+    >
+      <lightning-card title="Hello">
+        <lightning-button-icon
+          icon-name={_iconName}
+          title="Pin Panel"
+          onclick={handlePinPanel}
+          slot="actions"
+          data-id="pin-unpin-button"
+          variant={_variant}
+        ></lightning-button-icon>
+        <p class="slds-p-horizontal_small">Card Body (custom component)</p>
+        <p slot="footer">Card Footer</p>
+      </lightning-card>
+    </div>
+  </template>
+</template>

@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event is fire when a new race is entered" >
+    <aura:attribute name="race" type="Race__c" />
+    
+</aura:event>

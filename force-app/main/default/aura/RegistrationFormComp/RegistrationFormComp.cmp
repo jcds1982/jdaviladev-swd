@@ -1,0 +1,26 @@
+<aura:component >
+    <aura:attribute name="FirstName" type="String"  />
+    <aura:attribute name="LastName" type="String" />
+    <aura:attribute name="Salutation" type="String" />
+    <aura:attribute name="Phone" type="String" />
+    
+    <div class="Container"> 
+    	<ui:inputText aura:id="FirstName" label="First Name" class="field" placeholder="Enter your firstname" />
+        <br/>
+        <ui:inputText aura:id="LastName" label="Last Name" class="field" placeholder="Enter your lastname" />
+        <br/>
+        <ui:inputSelect multiple="false" label="Salutation">
+            <ui:inputSelectOption text="Dr."  label="Dr." value="true"/>
+            <ui:inputSelectOption text="Mr."  label="Mr."/>
+            <ui:inputSelectOption text="Mrs." label="Mrs."/>
+            <ui:inputSelectOption text="Ms."  label="Ms."/>
+		</ui:inputSelect>
+        <br/>
+        <ui:inputPhone aura:id="PhoneNumber" label="Phone Number" class="field" placeholder="Phone Number" />
+        <br/>
+        
+    	<br/><br/> 
+        <ui:button label="Submit" />
+    </div>
+    
+</aura:component>

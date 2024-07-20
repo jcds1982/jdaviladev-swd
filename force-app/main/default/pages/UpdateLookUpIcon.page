@@ -1,0 +1,238 @@
+<apex:page sidebar="false" showHeader="false" showChat="false" standardStylesheets="false"
+    controller="VFLookup_Controller">
+    <!-- Begin Default Content REMOVE THIS -->
+
+    <style>
+        @keyframes Expanding_Panel {
+            from {
+                height: 0px;
+            }
+
+            to {
+                height: 250px;
+            }
+        }
+
+        @keyframes Collapsing_Panel {
+            from {
+                height: 250px;
+                border: 1px solid #bbb;
+            }
+
+            to {
+                height: 0px;
+                border: 1px solid #bbb;
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        .custom_lookup {
+            width: 400px;
+            padding: 1em;
+            border-radius: 5px;
+            border: 1px solid #bbb;
+            height: 25px;
+        }
+
+        .button {
+            padding: 1rem !important;
+            background: #E6EDEC !important;
+            background-color: transparent !important;
+            font-size: 14px;
+            text-decoration: none;
+            vertical-align: middle;
+            background-color: transparent !important;
+            padding: 1rem !important;
+            border-radius: 5px !important;
+            border: solid 1px #DBDBDB !important;
+            color: rgb(80, 158, 47) !important;
+            text-decoration: none !important;
+            outline: 0 !important;
+        }
+
+        .button:hover {
+            background-color: #EEF5EA !important;
+            background: #EEF5EA !important;
+            border: solid 1px #DBDBDB !important;
+        }
+
+        .button:active {
+            background: #E6EDEC !important;
+            box-shadow: none !important;
+            background-color: #E6EDEC !important;
+            border: solid 1px #DBDBDB !important;
+        }
+
+        .panel {
+            display: block !important;
+            padding: 11px;
+            border: 1px solid #bbb;
+            width: 400px;
+            height: auto;
+            max-height: 250px;
+            overflow-y: auto;
+            border-radius: 5px;
+            margin-top: 2px;
+            animation: Expanding_Panel;
+            animation-duration: 0.3s;
+        }
+
+
+        .collapse {
+
+            display: block;
+            padding: 0px;
+            width: 400px;
+            padding: 11px;
+            height: 0px;
+            overflow-y: hidden;
+            border-radius: 5px;
+            margin-top: 2px;
+            animation: Collapsing_Panel;
+            animation-duration: 0.3s;
+        }
+
+        ul {
+            padding: 5px;
+        }
+
+        li {
+            padding: 5px;
+            list-style-type: none;
+        }
+
+        .panel li:hover {
+            background-color: #F6FAF5;
+            border-radius: 5px;
+
+        }
+
+        .custom_lookup_pac {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .spinner {
+            border-bottom: 10px solid rgb(80, 158, 47);
+            border-right: 10px solid #DBDBDB;
+            border-top: 10px solid #DBDBDB;
+            border-left: 10px solid rgb(80, 158, 47);
+            height: 25px;
+            width: 25px;
+            border-radius: 100px;
+            animation: spin 0.9s linear infinite;
+            margin-left: -23px;
+        }
+
+        .hide{
+            display: none !important;
+        }
+    </style>
+
+    <h1>Custom LookUp - Test</h1>
+    <br />
+
+    <apex:form >
+
+        <apex:actionFunction action="{!UpdateAccountList}" name="af_Getaccounts" reRender="listOfValues" oncomplete="">
+            <apex:param value="" name="accName" />
+        </apex:actionFunction>
+
+        <h4>Custom Lookup 1</h4>
+        <div>
+            <!-- <input type="text" value="great!" class="custom_lookup" /> -->
+            <div class="custom_lookup_pac">
+                <div>
+                    <apex:inputField value="{!acc1.Name}" styleClass="custom_lookup" id="customInputLookUp" />
+                </div>
+                <div style=" margin-left: 5px;">
+                    <input type="button" class="button" onclick="javascript: ShowOptional('customInputLookUp', 'listOfOptions');" value="Search" />
+                </div>
+            </div>
+
+            <div class="collapse" id="listOfOptions" style="display: none;">
+                <apex:outputPanel id="listOfValues">
+
+                <div style="display: flex; flex-direction:row; height: 100%; align-items: center; margin-left: 50%;" id="spinner" class="hide">
+                    <div class="spinner"/>
+                </div>
+                    <apex:outputPanel >
+                        <ul>
+                            <apex:variable var="Search" id="List" value="">
+                                <apex:repeat var="acc" value="{!accs}">
+                                    <li><a data-lookupId="listOfOptions" href="#"
+                                            onclick="SelectAndClose('customInputLookUp', '{!acc.Name}', '{!acc.Id}', 'listOfOptions');">{!acc.Name}</a>
+                                    </li>
+                                </apex:repeat>
+                            </apex:variable>
+                        </ul>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </div>
+        </div>
+
+
+    </apex:form>
+    <!-- End Default Content REMOVE THIS -->
+    <script>
+        function ShowOptional(inputId, panelId) {
+            let panel = document.getElementById(panelId);
+            let cl = document.querySelector('[id*=' + inputId + ']').value;
+
+            if(panel.className.search('panel') != 0) {
+                panel.classList.toggle("panel");
+            }
+            panel.classList.toggle("panel");
+            panel.classList.toggle("collapse");
+            panel.style = "";
+            HideSpinner();
+            af_Getaccounts(cl);
+        }
+
+        function SelectAndClose(custom_Lookup, value_selected, accId, panelId) {
+            let cl = document.querySelector('[id*=' + custom_Lookup + ']').value = value_selected;
+            console.log(cl + ' This is the Id --> ' + accId);
+            ShowOptional(custom_Lookup, panelId);
+        }
+
+
+        function SearchAccounts(inputId, panelId) {
+            // Set Time
+            let cl = document.querySelector('[id*=' + inputId + ']').value;
+            let panelClass = document.getElementById(panelId).className;
+            var result = panelClass.search('collapse');
+            console.log(result);
+
+            if (cl.length == 1) {
+                af_Getaccounts(cl);
+                ShowOptional(panelId);
+            } else if (result == 0) {
+                af_Getaccounts(cl);
+                ShowOptional(panelId);
+            } else if (cl.length == 0) {
+                ShowOptional(panelId);
+                //ClearID if necessary.
+            } else if (cl.length > 1) {
+                af_Getaccounts(cl);
+                //ClearID if necessary.
+            }
+            console.log(cl.length);
+            console.log(panelClass);
+        }
+
+        function HideSpinner() {
+            document.getElementById('spinner').classList.toggle('hide');
+        }
+    </script>
+
+</apex:page>

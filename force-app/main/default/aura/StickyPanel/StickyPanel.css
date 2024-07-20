@@ -1,0 +1,170 @@
+/* STICKY PANEL */
+@keyframes feedback_animation {
+    from {height: 0px;}
+    to {height: 400px;}
+}
+
+@keyframes feedback_animation_off {
+    from {height: 400px;}
+    to {height: 0px; display: none !important;}
+}
+
+.THIS.anchor{
+  position: fixed;
+  right: 5px;
+  bottom: 0px;
+  background: #4e81b3;
+  padding: 3px;
+  color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  transition: 0.4s ease;
+  padding-top: 10px;
+}
+
+.THIS .feedback-footer{
+    display: none;
+}
+
+.THIS .feedback-panel {
+  background: #ffffff;
+  color: #494949;
+  height: 500px;
+  width: 350px;
+  display: none;
+  overflow-y: auto;
+  padding: 10px;
+  transition: 0.4s;
+  animation: feedback_animation 1.0s forwards;
+  flex-direction: column;
+}
+
+
+.THIS .feedback-submit-panel {
+  background: #ffffff;
+  color: #494949;
+  /*height: 300px;*/
+  /*width: 250px;*/
+  display: none;
+  overflow-y: auto;
+  padding: 10px;
+  transition: 0.4s;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  margin: 150px auto;
+
+}
+
+
+
+.THIS .feedback-checkbox {
+  opacity: 0;
+  /*position: absolute;*/
+}
+
+.THIS .feedback-question{
+    flex-direction: row;
+}
+
+.THIS .questions{
+    font-weight: bold;
+    padding: 5px;
+}
+
+.THIS .feedback-checkbox:checked ~ .feedback-panel {
+  display: block;
+  z-index: 10;
+  animation: feedback_animation 0.4s forwards;
+}
+
+.THIS .feedback-checkbox:not(:checked) ~ .feedback-panel {
+  z-index: 10;
+  animation: feedback_animation_off 1.0s forwards;
+}
+
+/*  */
+
+
+.THIS .feedback-checkbox:checked ~ .feedback-submit-panel {
+  display: none;
+  z-index: 10;
+  /*animation: feedback_animation 0.4s forwards;*/
+}
+
+.THIS .feedback-checkbox:checked ~ .feedback-question {
+  display: block;
+  z-index: 10;
+  /*animation: feedback_animation 0.4s forwards;*/
+}
+
+
+
+.THIS .feedback-checkbox:checked ~ .feedback-footer{
+  display: block;
+  height: 50px;
+  background: #E3E3E3;
+  margin-top: -20px;
+  padding: 8px;
+  border-top: 3px solid #C1C1C1;
+
+}
+
+/*.feedback-checkbox:not(:checked) ~ .feedback-panel {*/
+/*  z-index: 10;*/
+/*  display: none;*/
+  /*animation: feedback_animation_off 0.1s forwards;*/
+/*}*/
+
+.THIS .List_No_Bullets{
+  list-style: none;
+
+}
+
+.THIS .Options_Horizontal {
+    float: left;
+    padding: 2px;
+}
+
+.THIS .Options_Vertical {
+    padding: 2px;
+    margin-left: -10px;
+}
+
+.THIS .Questions_Separator {
+      border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.THIS .feedback-textarea{
+    resize: none;
+    border: 1px solid #4E81B3;
+    border-radius: 2px;
+    outline: none;
+    color: #424142;
+
+}
+
+.THIS .feedback-spinner {
+    box-sizing: border-box;
+    height: 20px;
+    width: 20px;
+    margin: auto;
+    border: 0px solid #4E81B3;
+    border-radius: 50%;
+    box-shadow: 1px 0px 0 0px #4E81B3 inset;
+    animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* END - STICKY PANEL */

@@ -1,0 +1,50 @@
+<aura:component>
+    <ol>
+       <!-- -->
+            <li>Inline Css</li> <br />
+            <ul>
+                <li>
+                    <h1 style="color:yellow;background-color:orange;">This is Inline css.</h1>
+                </li>
+                <li>
+                    <p style="color:red;background-color:orange;">This is paragraph.</p>
+                </li>
+                <li>
+                    <div style="color:white;background-color:orange;"> Inside HTML div. </div>
+                </li>
+            </ul>
+            <br />
+            <!-- -->
+            <li>External Css</li> <br />
+            <ul>
+                <li><h2>This is Inline css.</h2></li>
+                    <li>
+                        <p class="paragraph">This is paragraph.</p>
+                    </li>
+                    <li>
+                        <div id="divId"> Inside HTML div. </div>
+                    </li>
+                </ul> <br />
+                <!-- -->
+                    <li>STYLE tab in component bundle</li> <br />
+                    <ul>
+                        <li>
+                            <h3>This is Inline css.</h3>
+                        </li>
+                        <li>
+                            <p class="StyleTabparagraph">This is paragraph.</p>
+                        </li>
+                        <li>
+                            <div id="StyledivId"> Inside HTML div. </div>
+                        </li>
+                    </ul>
+    </ol>
+
+    <h4>This is h4 at top level element.</h4>
+    <p id="p">This is top level element.</p> <br />
+    <div>
+        <h4>This is h4 at top level element.</h4>
+        <p id="p">This is top level element.</p>
+    </div>
+
+</aura:component>

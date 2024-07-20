@@ -1,0 +1,18 @@
+<!--
+ - Created by julioda on 3/16/18.
+ -->
+
+<aura:component description="AOC_Account_Main">
+
+    <div class="grid_container">
+        <div class="item-header"><c:AOC_Account_Header />  </div>
+        <div class="item-main-content">Main Content</div>
+        <div class="item-main-sidebar">Sidebar </div>
+        <div class="item-footer">Footer
+            <!-- <button onclick="javascript: CallAlert('test');" >Click me</button>-->
+            <!-- this is another test -->
+        </div>
+    </div>
+
+
+</aura:component>

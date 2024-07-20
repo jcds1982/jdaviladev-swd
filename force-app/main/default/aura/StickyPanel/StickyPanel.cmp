@@ -1,0 +1,113 @@
+<aura:component >
+    <!-- STICKY PANEL -->
+    <div  class="anchor">
+        <label for="feedback"> <i class="fa fa-comment-o" style="margin-left:5px;"/> We want to hear from you! </label>
+        <input type="checkbox" id="feedback" class="feedback-checkbox" name="feedback" onclick="reset_feedback();" />
+        <div class="feedback-panel" id="feedback-panel">
+            <div id="feedback-question">
+                <span class="questions">1. Please provide any feedback that could help us to improve your overall experience with the Project Console.</span>
+                <br/>
+                <textarea rows="5" cols="150"  style="margin-left: 15px; padding-left: 10px; width: 285px;" placeholder="Enter your feedback here" class="feedback-textarea"  ></textarea>
+
+                <!--<ul class="List_No_Bullets">-->
+                <!--<li class="Options_Horizontal">-->
+                <!--<input type="radio" name="op1" value="Option1" /> Option 1</li>-->
+                <!--<li class="Options_Horizontal">-->
+                <!--<input type="radio" name="op1" value="Option2" /> Option 2</li>-->
+                <!--<li class="Options_Horizontal">-->
+                <!--<input type="radio" name="op1" value="Option3" /> Option 3</li>-->
+
+                <!--</ul>-->
+                <hr class="Questions_Separator"/>
+                <span class="questions">2. How satisfied are you with the experience of using the Project Console?</span>
+                <ul class="List_No_Bullets">
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op2" value="Option1" /> Extremely Satisfied
+                    </li>
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op2" value="Option2" /> Satisfied
+                    </li>
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op2" value="Option3" /> Neutral
+                    </li>
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op2" value="Option4" /> Dissatisfied
+                    </li>
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op2" value="Option5" /> Extremely Dissatisfied
+                    </li>
+                </ul>
+                <hr class="Questions_Separator"/>
+
+                <span class="questions">3. How easy is it to use the Project Console?</span>
+                <ul class="List_No_Bullets">
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op3" value="Option1" /> Extremely Easy
+                    </li>
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op3" value="Option2" /> Easy
+                    </li>
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op3" value="Option3" /> Neutral
+                    </li>
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op3" value="Option4" /> Difficult
+                    </li>
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op3" value="Option5" /> Extremely Difficult
+                    </li>
+                </ul>
+                <hr class="Questions_Separator"/>
+
+
+                <span class="questions">4. How valuable is the Project Console to keep your project on schedule?</span>
+                <ul class="List_No_Bullets">
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op4" value="Option1" /> Extremely Valuable
+                    </li>
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op4" value="Option2" /> Valuable
+                    </li>
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op4" value="Option3" /> Neutral
+                    </li>
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op4" value="Option4" /> Somewhat Valuable
+                    </li>
+                    <li class="Options_Vertical">
+                        <input type="radio" name="op4" value="Option5" /> Not Valuable
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="feedback-submit-panel" id="feedback-submit-panel">
+                <span style="font-size: 18px; font-weight: bold; ">Thank you for your feedback</span>
+                <br/>
+                <br/>
+                <br/>
+                <div class="feedback-spinner"></div>
+
+            </div>
+        </div>
+
+        <br/>
+        <div class="feedback-footer" >
+            <button style="background: #4E81B3 !important; border: none !important; color: #ffffff; padding: 5px;" onclick="Submit_Feedback()">Submit</button>
+            <button style="background: transparent; border: none; color: #24B6F4; font-size: 14px;" onclick="Cancel_Feedback();">Cancel</button>
+        </div>
+
+    </div>
+    <!-- END - STICKY PANEL -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</aura:component>

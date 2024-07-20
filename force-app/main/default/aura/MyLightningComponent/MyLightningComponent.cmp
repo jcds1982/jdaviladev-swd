@@ -1,0 +1,6 @@
+<aura:component implements="force:appHostable">
+    <h1 class="headline">
+    	My lightning App - this is a sencond test.
+    </h1>
+	
+</aura:component>

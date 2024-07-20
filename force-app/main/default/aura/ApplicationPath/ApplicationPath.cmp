@@ -1,0 +1,24 @@
+<aura:component >
+    
+    
+    <div class="Path__Main_Container" >
+        
+        <div class="Path__content_Container">
+            <div class="Path__Main_Content" >Open</div>
+        </div>
+        
+        <div class="Path__content_Container">
+            <div class="Path__Main_Content" >Closed</div>
+        </div>
+    
+    </div>
+    
+    
+    <lightning:input type="toggle" label="Basic option" name="input1"/>
+    <lightning:input type="toggle" label="Required option" name="input2" checked="true" required="true"/>
+    <lightning:input type="toggle" label="Disabled option" name="input3" checked="true" disabled="true"/>
+    
+    
+    
+	
+</aura:component>

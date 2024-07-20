@@ -1,0 +1,128 @@
+<!--
+ - Created by julioda on 10/30/19.
+ -->
+
+<apex:page id="JuliusRichText" controller="JuliusRichText_Controller" sideBar="false" applyBodyTag="false">
+
+    <style>
+
+        /*
+        et stands for EMAIL TEMPLATE
+        */
+        .et__minimum_values{
+            min-width: 500px;
+            min-height: 30px;
+        }
+
+        .et__body_minimum_values{
+            min-height: 70px;
+        }
+
+        .et__Main_conainter{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-width: 500px;
+
+        }
+        .et__content_panel{
+            display: block;
+            /*padding: 10px;*/
+            border: 1px solid #f3f3f3;
+            border-radius: 4px;
+            overflow: auto;
+            position: relative;
+        }
+
+        .et__content_panel_body{
+            display: block;
+            height: 90%;
+            /*padding: 10px;*/
+            border: 1px solid #f3f3f3;
+            border-radius: 4px;
+            /*overflow: scroll;*/
+            position: relative;
+        }
+
+        .et__content_panel_header{
+             position: relative;
+             top: 0;
+             left: 0;
+             padding: 10px;
+             background-color: #2e771d;
+             color: #fff;
+             font-weight: bold;
+             font-size: 18px;
+         }
+
+        .et__content_panel_footer{
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            padding: 10px;
+            background-color: #f8f8f8;
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+
+    <body>
+
+    <apex:form >
+        <apex:actionFunction name="GetEmailTemplateInfo" action="{!GetEmailInformation}" reRender="emailtemplate" >
+        </apex:actionFunction>
+<!--        <input type="button" onclick="javascript: GetEmailTemplateInfo();" value="Get Email Template" />-->
+
+        <div class="et__Main_conainter et__minimum_values">
+            <div  class="et__content_panel et__minimum_values">
+                <div class="et__content_panel_header et__minimum_values">
+                    Email Template
+                </div>
+                <div class="et__content_panel_body et__minimum_values" >
+                    <br/>
+                    <div id="emailtemplatepanel" class="et__body_minimum_values">
+                        <apex:outputPanel id="emailtemplate" >
+                            <div contenteditable="true" data-id="body">
+                                <apex:outputText value="{!emailTemplate}" escape="false" ></apex:outputText>
+                            </div>
+                        </apex:outputPanel>
+                    </div>
+                </div>
+                <div class="et__content_panel_footer et__minimum_values">
+                    <input type="button" value="Copy" onclick="javascript: GetBodyValue('emailtemplatepanel');" />
+                </div>
+            </div>
+        </div>
+
+
+
+        <apex:inputTextarea richText="true"/>
+
+
+    </apex:form>
+    <script>
+        window.addEventListener('load', function() {
+            console.log('Email Template loaded');
+            GetEmailTemplateInfo();
+        });
+
+        const GetBodyValue = (elementToCopy)=>{
+            let bodyEmailTemplate = document.getElementById(elementToCopy);
+            let range, selection;
+
+            selection = window.getSelection();
+            range = document.createRange();
+            range.selectNodeContents(bodyEmailTemplate);
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+        }
+
+    </script>
+    </body>
+</apex:page>

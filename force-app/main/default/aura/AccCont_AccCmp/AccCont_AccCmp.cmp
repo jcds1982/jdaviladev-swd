@@ -1,0 +1,29 @@
+<aura:component controller="AccCont_Controller">
+    <aura:attribute name="Accounts" type="List" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />    
+   
+    <table border="1">
+        <caption>Account List</caption>
+        <thead>
+            <tr>
+                <th class="slds-truncate">Name</th>
+                <th class="slds-truncate">Industry</th>
+                <th class="slds-truncate">Street</th>
+                <th class="slds-truncate">City</th>
+                <th class="slds-truncate">State</th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.accounts}" var="account" >
+                <tr>
+                    <td>{!account.Name}</td>
+                    <td>{!account.Industry}</td>
+                    <td>{!account.BillingStreet}</td>
+                    <td>{!account.BillingCity}</td>
+                    <td>{!account.BillingState}</td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+	
+</aura:component>

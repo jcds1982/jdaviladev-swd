@@ -1,0 +1,165 @@
+<template>
+    <div class="Container__master" >
+        <div class="Container__flipper" data-id="maincard" >
+            <div class="Container__Inner Container__Inner_left">
+                <div id="message" data-id="message" class="Container__master_Collapse_hide Container__master_Collapse_text">Your email has been sent</div>
+                <div class="MainPanel" data-id="containermaster">
+                    <template if:true={showError}>
+                        <div class="ErrorBanner_Container" >
+                            <div class="ErrorBanner_Content"><span class="ErrorBanner_Title">Action required</span>
+                                <ul>
+                                    <template for:each={errorMessages} for:item="message">
+                                        <li key={message} class="ErrorBanner_Element">{message}</li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </template>
+                    <!-- Select Contact  -->
+                    <div class="ecContainer">
+                        <!-- Loading Template Spinner -->
+                        <div data-id="templatespinner" class="hide">
+                            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                        </div>
+                        <!-- END - Loading Template Spinner-->
+                        <div class="ecElement">
+                            <div class="ecElementTag">
+                                <div data-id="addcc" class="hide" >
+                                    <span class="emailTypeSelection " onclick={AddEmailAddressAsCC}>Cc</span>
+                                    <div class="alignEmailTypeSelectionHelpText"> <lightning-helptext content="Click on CC to add the email address as CC."></lightning-helptext></div>
+                                </div>
+                            </div>
+                            <lightning-input type="search" label="Recipient:" class="ecElementFull inputnPillColor" value={searchContact} data-id="todd"  data-reciepienttype="contact"  onchange={handleKeyChange} onkeyup={enterEmailAddressFromContact} placeholder="Add Recipient..." field-level-help="Type the name of the contact and select from list OR type the email address and press enter" ></lightning-input>
+                            <div  class="slds-is-relative spinner" if:true={isLoaded} ></div>
+                        </div>
+
+                        <template if:true={showContactList}>
+                            <div class="panel">
+                                <ul>
+                                    <template for:each={contacts} for:item="contact">
+                                        <li key={contact.Id} class="contact_list_container" >
+                                            <div  class="contact_title" onclick={selectContactEmail}>
+                                                <div  key={contact.Id} data-emailtype="ecto" data-contemail={contact.Email} data-contname={contact.Name} class="contact_title" >{contact.Name}</div>
+                                                <div class="account_subtitle" data-emailtype="ecto" data-contemail={contact.Email} data-contname={contact.Name}>{contact.Email}</div>
+                                                <div class="contact_title_email_type_strip">
+                                                    <!-- <span class="emailTypeSelection" data-emailtype="ecto" data-contemail={contact.Email} data-contname={contact.Name}>To </span> -->
+                                                    <span class="emailTypeSelection" data-emailtype="eccc" data-contemail={contact.Email} data-contname={contact.Name}>Cc</span>
+                                                    <!-- <span class="emailTypeSelection" data-emailtype="ecbcc" data-contemail={contact.Email} data-contname={contact.Name}>BCC </span> -->
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </template>
+
+
+                        <!-- To Recipients list -->
+                        <template  if:true={showToRecipientsList} >
+                            <div class="ecElement">
+                                <div class="ecSubTitle"><p>To recipient list:</p></div>
+                                <template for:each={ecToRecipients} for:item="toRecipient" >
+                                    <lightning-pill key={toRecipient.email} label={toRecipient.nameOrEmail} class="inputnPillColor" onremove={RemoveEmailFromList} data-emailindex={toRecipient.email} data-reciepienttype="ecto"  >
+                                        <lightning-icon icon-name="standard:email" variant="circle" alternative-text="email"></lightning-icon>
+                                    </lightning-pill>
+                                </template>
+                            </div>
+                        </template>
+
+
+                        <!-- CC  -->
+                        <template if:true={showcc}>
+                            <div class="ecElement">
+                                <lightning-input type="email" label="CC:" name="emailCc" class="ecInputStyle" value={ecCC} data-reciepienttype="eccc" onkeyup={enteringEmailAddress} placeholder="Enter a single email address and hit enter to add recipient..." field-level-help="Type an email address and press ENTER. You can enter one email at a time."></lightning-input>
+                            </div>
+                        </template>
+                        <!-- END - CC  -->
+
+                        <!-- CC Recipients list -->
+                        <template  if:true={showCCRecipientsList} >
+                            <div class="ecElement">
+                                <div class="ecSubTitle"><p>CC recipient list:</p></div>
+                                <template for:each={ecCCRecipients} for:item="ccRecipient" >
+                                    <lightning-pill key={ccRecipient.email} label={ccRecipient.nameOrEmail} class="inputnPillColor" onremove={RemoveEmailFromList} data-emailindex={ccRecipient.email}  data-reciepienttype="eccc">
+                                        <lightning-icon icon-name="standard:email" variant="circle" alternative-text="email"></lightning-icon>
+                                    </lightning-pill>
+                                </template>
+                            </div>
+                        </template>
+                        <!-- END - CC Recipients list -->
+
+                        <!-- Email template dropdown -->
+                        <div class="ecElement">
+                            <lightning-combobox data-id="emailtemplate" name="emailtemplate" label="Email Template" value={emailTemplateSelected}
+                                                options={emailTemplates} placeholder="Select email template..." onchange={changeEmailTemplate} class="inputnPillColor">
+                            </lightning-combobox>
+                        </div>
+                        <!-- END - Email template dropdown -->
+
+                        <!-- Attachments  -->
+                        <div class="ecElement">
+                            <lightning-input type="file" label="Attachment" value={ecAttachment} onchange={handleFilesChange} multiple  ></lightning-input>
+                            <span class="maxFileSize">Maximum size per file 10Mb. <br/> Maximum attachments size per Email 20Mb.</span>
+                        </div>
+                        <div class="ecElement">
+                            <template  if:true={showAttachments} >
+                                <template for:each={ecAttachment} for:item="att" >
+                                    <lightning-pill key={att.fileIndex} label={att.file.name} class="inputnPillColor" onremove={handleFileRemove} data-fileindex={att.fileIndex}  >
+                                        <lightning-icon icon-name="standard:file" variant="circle" alternative-text="Files"></lightning-icon>
+                                    </lightning-pill>
+                                </template>
+                            </template>
+                        </div>
+                        <!-- END - Attachments  -->
+
+
+
+                        <!-- Subject  -->
+                        <div class="ecElement">
+                            <lightning-input type="text" name="ecEmailSubject" label="Subject:" value={ecSubject}
+                                             placeholder="Enter subject..." class="inputnPillColor" onchange={updateSubject} data-id="subject"></lightning-input>
+                        </div>
+                        <!-- END - Subject  -->
+
+                        <!-- Body -->
+                        <div class="ecElement">
+                            <lightning-input-rich-text value={ecBody} class="ecElementFull" formats={formats} onchange={updateEmailBody} data-id="body">
+                            </lightning-input-rich-text>
+                        </div>
+
+                        <div class="ecElement">
+                            <div class="ecButtonStrip">
+                                <div>
+                                    <lightning-button variant="base" label="Preview"  onclick={FlipCard}></lightning-button>
+                                </div> &nbsp;&nbsp;
+                                <div class="ecButtonStrip_button">
+                                    <lightning-button variant="brand" label="Send Email" onclick={SendEmail}></lightning-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EMAIL PREVIEW  -->
+            <div class="Container__Inner Container__Inner_right">
+                <div class="ecPreviewMainPanel">
+                    <div class="ecElement ecPreviewContainer" style="padding: 20px;">
+                        <lightning-formatted-rich-text value={ecBody}></lightning-formatted-rich-text>
+                    </div>
+
+                    <div class="ecElement" data-id="previewcard">
+                        <div class="ecButtonStrip" >
+                            <div >
+                                <lightning-button variant="base" label="Go back to composer"  onclick={FlipCard}></lightning-button>
+                            </div> &nbsp;&nbsp;
+                            <div class="ecButtonStrip_button">
+                                <lightning-button variant="brand" label="Send Email" onclick={SendFromPreview}></lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

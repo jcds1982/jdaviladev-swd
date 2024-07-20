@@ -1,0 +1,10 @@
+<aura:component >
+	<aura:registerEvent name="message" type="c:message"/>
+    <aura:attribute name="plainText" type="String" default="another test" />
+    
+    <ui:inputText aura:id="txtIn" label="Initial Text: " value="" />
+
+    <ui:button label="1" press="{!c.send}" buttonTitle="This is the 1st button"/>
+    <ui:button label="2" press="{!c.send}"/>
+    <!-- {!v.plainText} -->
+</aura:component>

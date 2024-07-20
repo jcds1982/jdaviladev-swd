@@ -1,0 +1,5 @@
+<!-- message.evt -->
+<aura:event type="APPLICATION">
+    <aura:attribute name="text" type="String"/>
+    <aura:attribute name="text2" type="String"/>
+</aura:event>

@@ -1,0 +1,15 @@
+<aura:component controller="ContactController">
+
+    <aura:attribute name="contact" type="Contact" default="{'sobjectType': 'Contact'}"/>
+    <aura:handler event="aura:locationChange" action="{!c.locationChange}"/>
+
+    <div class="details">
+        <h1>Contact Name: {!v.contact.Name}</h1>
+        <br/>
+        <!--<h3>{!v.contact.Account.Name}</h3>-->
+        <!--<h3>{!v.contact.Title}</h3>-->
+        <p>Phone:{!v.contact.Phone}</p>
+        {!v.contact.MobilePhone}
+    </div>
+
+</aura:component>

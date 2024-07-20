@@ -1,0 +1,100 @@
+<!--
+ - Created by julioda on 11/1/19.
+ -->
+
+<aura:component description="AuraEmailComposer" controller="lightningEmailComposer_Controller">
+
+
+    <aura:attribute type="string" name="templateId" />
+
+
+    <aura:attribute type="string" name="recipientSearch" />
+    <aura:attribute type="string" name="ecSubject"  />
+    <aura:attribute type="string" name="ecBody"  />
+    <aura:attribute type="string[]" name="ecContacts" />
+    <aura:attribute type="string[]" name="ecErrorMessages" default="['error 1' ,'error 2' ,'error 3','error 4']"/>
+    <aura:attribute type="boolean" name="showError" default="true" />
+
+    <!-- Handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <!--    <aura:handler name="init" value="{!this}" action="{! c.init }"/>-->
+
+
+    <div class="ecContainer">
+
+        <!-- ERROR MESSAGE CONTAINER -->
+        <aura:if isTrue="{!v.showError}">
+            <div class="ErrorBanner_Container" >
+                <div class="ErrorBanner_Content"><span class="ErrorBanner_Title">Action required</span>
+                    <ul>
+                        <aura:iteration items="{!v.ecErrorMessages}" var="errorMessage">
+                            <li class="ErrorBanner_Element">{!errorMessage}</li>
+                        </aura:iteration>
+                    </ul>
+                </div>
+            </div>
+        </aura:if>
+        <!-- END - ERROR MESSAGE CONTAINER -->
+
+
+        <!-- RECIPIENT  -->
+        <div class="ecElement">
+            {!v.ecContacts}
+            <lightning:input name="recipient" value="{!v.recipientSearch}" label="Recipent" placeholder="Add Recipient..." fieldLevelHelp="Type the name of the contact and select from the name OR type the email address and press ENTER" />
+        </div>
+
+        <!-- EMAIL TEMPLATE -->
+        <div class="ecElement">
+            <lightning:select name="emailtemplate" label="Email Template" required="false">
+                <option value="">choose one...</option>
+                <option value="1">one</option>
+                <option value="2">two</option>
+                <option value="3">three</option>
+            </lightning:select>
+        </div>
+
+        <!-- ATTACHMENTS -->
+        <div class="ecElement">
+            <lightning:input name="attachment" type="file" label="Attachment" multiple="true" accept="image/png, .zip" /> <!-- onchange="{! c.handleFilesChange }" -->
+        </div>
+
+        <!--SUBJECT   -->
+        <div class="ecElement">
+            <lightning:input name="subject" value="{!v.ecSubject}" label="Subject" placeholder="Enter your subject..." />
+        </div>
+
+        <!-- BODY -->
+        <div class="ecElement">
+            <lightning:inputRichText value="{!v.ecBody}" placeholder="Type something interesting"/>
+        </div>
+
+
+        <div class="ecElement">
+            <div class="ecButtonStrip">
+                <div>
+                    <lightning:button variant="base" label="Preview"  onclick="{!c.FlipCard}" />
+                </div> &nbsp;&nbsp;
+                <div class="ecButtonStrip_button">
+                    <lightning:button variant="brand" label="Send Email" onclick="{!c.SendEmailFromComposer}" />
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+<!--    <h1 class="slds-m-top_large slds-text-heading_medium">Output</h1>-->
+<!--    <div aura:id="output" class="slds-box editor slds-text-longform">-->
+<!--        <lightning:formattedRichText value="{!v.myVal}" />-->
+<!--    </div>-->
+
+
+
+
+</aura:component>

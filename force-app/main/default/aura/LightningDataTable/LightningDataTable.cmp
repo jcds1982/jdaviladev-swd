@@ -1,0 +1,55 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="LightningDataTableController">
+    <aura:attribute name="mydata" type="Object"/>
+    <aura:attribute name="filteredData" type="Object"/>
+    <aura:attribute name="mycolumns" type="List"/>
+    <aura:attribute name="sortedBy" type="String"/>
+    <aura:attribute name="sortedDirection" type="String"/>
+    
+    <!-- filter input -->
+    <aura:attribute name="filter" type="String" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    
+    
+    <div class="slds-text-heading_small">Table Global Search</div>
+    
+    <div class="slds-grid slds-gutters">
+      <div class="slds-col slds-size_1-of-5">
+        <span>&nbsp;</span>
+      </div>
+      <div class="slds-col slds-size_3-of-5">
+        <span><lightning:input name="Search" label="Search" onkeyup="{!c.filter}" value="{!v.filter}" type="text"/></span>
+      </div>
+      <div class="slds-col slds-size_1-of-5">
+        <span>&nbsp;</span>
+      </div>
+    </div>
+    
+    
+    
+    <div style="height: 500px" draggable="true">
+        <lightning:datatable data="{!v.filteredData}"
+            class="testColumn"
+            columns="{!v.mycolumns}" 
+            keyField="Id"
+            sortedBy="{!v.sortedBy}"
+            sortedDirection="{!v.sortedDirection}"
+            onsort="{!c.updateColumnSorting }"
+            hideCheckboxColumn="true"
+            showRowNumberColumn="true"
+            resizeColumnDisabled="true"
+            rowNumberOffset="0" />
+    </div>
+    
+    
+    
+    <br/>
+    <div draggable="true" style="height: 50px; width: 150px; background-color: red; "></div>
+    <br/>
+    <div draggable="true" style="height: 50px; width: 150px; background-color: white; border: 1px solid #000; "></div>
+    <br/>
+    <div draggable="true" style="height: 50px; width: 150px; background-color: white; border: 1px solid #000; "></div>
+    
+    
+</aura:component>

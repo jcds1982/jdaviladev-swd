@@ -1,0 +1,20 @@
+<!--
+ - Created by julioda on 3/16/18.
+ -->
+
+<aura:component description="AOC_Account_Header" controller="AOC_Account_Header">
+
+    <aura:attribute name="Opp" type="Opportunity" default="{'sObjectType':'Opportunity'}" />
+
+
+
+    <div class="Main_Container ">
+        <div id="Text_Container" class="slds-col slds-size_4-of-12"  >
+            <span onkeyup="{!c.getAlert}">
+                <lightning:input label="Select Account" name="Opportunity_Name" value="{!v.Opp.AccountId}"
+                             class="input_Color" placeholder="Enter Account"/>
+            </span>
+
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,8 @@
+<aura:tokens extends="force:base">
+    <aura:token name="SwdColor" value="#529412" />
+    <aura:token name="Content_Title_size" value="18px" />
+    <aura:token name="Content_Main_padding" value="20px" />
+    <aura:token name="Modal_Container_Background" value="#ffffff" />
+    <aura:token name="red_background" value="red" />
+
+</aura:tokens>

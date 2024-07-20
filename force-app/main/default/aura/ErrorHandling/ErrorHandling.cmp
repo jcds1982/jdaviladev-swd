@@ -1,0 +1,22 @@
+<aura:component >
+    <lightning:input aura:id="inputCmp" type="text" messageWhenValueMissing="You must enter a value!" required="true" label="Enter a number: " /> <br/>
+    <lightning:input aura:id="inputCmp" type="text" messageWhenValueMissing="You must enter email!"   required="true" label="Enter a email: "/> <br/>
+    
+    <lightning:select name="Selection" label="How many tickets?" required="true" aura:id="selectComponents" messageWhenValueMissing="Please choose one!">
+        <option value="">None</option>
+    	<option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </lightning:select>
+    <br/>
+    
+    <lightning:select name="Selection" label="How many Options?" required="true" aura:id="selectComponents" messageWhenValueMissing="You must select an option!">
+        <option value="">None</option>
+    	<option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </lightning:select>
+    
+    <lightning:button type="submit" label="Submit" onclick="{!c.validateForm}" />
+    
+</aura:component>

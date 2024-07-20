@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Search Contact based on Id" >
+	<aura:attribute name="ContactId" type="string" />
+
+</aura:event>

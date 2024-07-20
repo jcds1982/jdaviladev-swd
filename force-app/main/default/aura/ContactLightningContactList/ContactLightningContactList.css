@@ -1,0 +1,100 @@
+.THIS{
+    
+}
+
+.THIS td{
+    border-bottom: 1px solid;
+    border-bottom-color: #191919;
+    transition: 0.2s;
+    
+}
+
+.THIS td:hover{
+    /*background-color: rgba(223, 223, 223, 1); */
+    text-decoration-color: white;
+    background: linear-gradient(30deg, rgba(223, 223, 223, .7), white, white) ;
+    /*opacity: 0.5;*/
+    /*font-size: 18px;*/
+}
+
+.THIS a{
+    color: #656565;
+    font-weight: bold;
+}
+
+.THIS .Header {
+    Background: green;
+}
+
+.THIS.Modal_background{
+      position: fixed;
+      Top: 0;
+      left: 0;
+      background-color: rgba(0,0,0,0.5);
+      width: 100%;
+      height: 100%;
+      display: none;
+      z-index: 9999; 
+      overflow: hidden;
+      flex-direction: column;
+    
+    }
+
+.THIS .Modal_Container{
+    
+    align-self: center;
+    flex-direction: column;
+    display: flex;
+    width: 700px;
+    height: 300px;
+    margin: 15% auto;
+    position: relative;
+    animation: 0.7s ease-out 0s 1 slideInFromLeft;
+    background-color: token(Modal_Container_Background);
+    border-radius: 10px;
+    
+}
+
+
+.THIS .Modal_header{
+    
+    background-color: token(UltiColorTest); /*#529412;*/
+    padding: t(Modal_padding);
+    border-top-left-radius: t(Modal_general_radius);
+    border-top-right-radius: t(Modal_general_radius);
+    color: token(Header_font_color);
+    font-size: token(Header_font_size);
+    height: 50px;
+
+
+}
+
+.THIS .Modal_footer{
+
+    background-color: token(Footer_background_color); /*#529412;*/
+    padding: t(Modal_padding);
+    border-bottom-left-radius: t(Modal_general_radius);
+    border-bottom-right-radius: t(Modal_general_radius);
+    color: token(Header_font_color);
+    font-size: token(Header_font_size);
+    height: 50px;
+
+}
+
+.THIS .Modal_Content{
+
+    padding: token(Content_Main_padding);
+    font-size: token(Content_Title_size);
+    height: 200px;
+
+}
+
+.THIS .Modal_button{
+
+    border-radius: t(Modal_button_radius);
+    background-color: t(Modal_button_color);  /* red_background in SWDStyles Bundle */
+    color: t(Modal_button_font_color);
+    border: 1px solid t(Modal_button_color);
+    font-size: t(Modal_button_font_size);
+
+}

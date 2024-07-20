@@ -1,0 +1,8 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+
+    <aura:attribute type="map" name="DEFAULTMODE" default="{ DEFAULT_MODE :  { 
+                                        paymentCount : 1
+                                        }
+                                        }" />
+
+</aura:component>

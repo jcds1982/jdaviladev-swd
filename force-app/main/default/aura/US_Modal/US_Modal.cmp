@@ -1,0 +1,17 @@
+<!--
+ - Created by julioda on 9/15/17.
+ -->
+
+<aura:component description="US_Modal">
+
+
+    <a>MORE INFO</a>
+
+    <div class="Modal__Background">
+        <c:US_Modal_Container Header_Title="SR Project detail information"  />
+        <!--MODAL CONTAINER-->
+
+    </div>
+
+
+</aura:component>

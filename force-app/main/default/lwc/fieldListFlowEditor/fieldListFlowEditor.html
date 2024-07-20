@@ -1,0 +1,52 @@
+<template>
+  <template if:true={listOfFields}></template>
+  <div>
+    <lightning-button
+      label="Get Checkbox Group"
+      onclick={findCheckboxGroup}
+    ></lightning-button>
+  </div>
+  <div class="multiselect">
+    <lightning-checkbox-group
+      name="Fields"
+      label="Fields"
+      options={options}
+      value={value}
+      onchange={handleChange}
+      class="multiselect"
+    ></lightning-checkbox-group>
+  </div>
+
+  <br />Value selected: {selectedValues}
+  <hr />
+
+  <div class="multiselect">
+    <lightning-dual-listbox
+      name="Fields"
+      label="Select fields"
+      source-label="Available"
+      selected-label="Selected"
+      field-level-help="Select all the fields you need"
+      options={options}
+      onchange={handleChange_dl}
+      size="10"
+    ></lightning-dual-listbox>
+  </div>
+  <br />
+  <div class="slds-box">
+    <p>Selected values are: {selected}</p>
+  </div>
+  <!-- <lightning-record-view-form
+    record-id="0016100001TmpTIAAZ"
+    object-api-name="Account"
+  >
+    <lightning-output-field field-name="Name"></lightning-output-field>
+    <template if:true={value}>
+      <template for:each={value} for:item="field">
+        <div class="slds-box" key={field}>
+          <lightning-output-field field-name={field}> </lightning-output-field>
+        </div>
+      </template>
+    </template>
+  </lightning-record-view-form> -->
+</template>

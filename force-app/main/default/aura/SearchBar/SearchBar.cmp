@@ -1,0 +1,4 @@
+<aura:component >
+    Enter the user name: <input type="text" class="form-control" onkeyup="{!c.searchKeyChange}" placeholder="Search" />
+    
+</aura:component>

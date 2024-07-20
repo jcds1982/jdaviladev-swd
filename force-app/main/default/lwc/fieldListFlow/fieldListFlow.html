@@ -1,0 +1,14 @@
+<template>
+  <!-- Fields: {fields} -->
+  <div style="width: 700px;" >
+    <lightning-record-view-form record-id="0016100001TmpTIAAZ" object-api-name="Account">
+      <template if:true={listOfFields}>
+        <template for:each={listOfFields} for:item="field">
+          <div class="slds-box" key={field}>
+            <lightning-output-field field-name={field}> </lightning-output-field>
+          </div>
+        </template>
+      </template>
+    </lightning-record-view-form>
+  </div>
+</template>

@@ -1,0 +1,25 @@
+<apex:page controller="Parameters">
+    <apex:form id="RID">
+    
+        	<apex:inputText value="{!name}" id="name"/>
+            <apex:commandButton value="click" action="{!collectName}" rerender="name1,name" /> 
+            <br/>
+    
+        <apex:inputText value="{!txt}" id="txt"/>
+        
+        <br/>
+        <apex:commandButton value="click" action="{!TestX}" rerender="RID">
+            <apex:param name="X" value="{!X + 1}" />
+        </apex:commandButton>
+        <apex:outputText value="{!X}"/><br/>
+ 
+        <apex:commandButton value="click" action="{!TestX2}" rerender="RID">
+            <apex:param assignTo="{!X2}" value="{!X2 + 1}" />
+        </apex:commandButton>
+        <apex:outputText value="{!X2}"/><br/>
+        
+        
+        <apex:inputText value="{!name}" id="name1"/>
+ 
+    </apex:form>
+</apex:page>

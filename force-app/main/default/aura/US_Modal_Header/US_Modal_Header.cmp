@@ -1,0 +1,15 @@
+<!--
+ - Created by julioda on 9/15/17.
+ -->
+
+<aura:component description="US_Modal_Header">
+
+    <aura:attribute type="string" name="title" />
+
+
+    <div class="Modal__header_background">
+        <div class="Modal__Header_Title">
+            {!v.title}
+        </div>
+    </div>
+</aura:component>

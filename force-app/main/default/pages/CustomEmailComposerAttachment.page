@@ -1,0 +1,475 @@
+<apex:page controller="CustomEmailComposer_Controller" sidebar="false" showHeader="false" applyHtmlTag="false">
+
+
+
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+    <apex:slds />
+    <apex:includeLightning />
+    <style>
+        .ecContainer {
+            display: flex;
+            background-color: #F9F9F9;
+            flex-direction: column;
+            z-index: 3;
+            padding: 20px;
+            overflow: auto;
+            border-radius: 10px;
+            transition: all 0.3s;
+            width: 80%;
+        }
+
+        .ecContainerRowDirection {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .ecPanel {
+            /* border: 1px solid #333; */
+            width: 400px;
+            padding: 30px;
+        }
+
+        .ecPanelEmailBody {
+            width: 860px;
+            padding: 30px;
+            height: 500px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .ecElement {
+            margin-top: 0.8em;
+            position: relative;
+        }
+
+        .ecElement input[type="text"] {
+            width: 60%;
+            padding: 10px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid #888888;
+            outline: none;
+        }
+
+        .ecSelectOption {
+            width: 60%;
+            padding-left: 10px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid #888888;
+            outline: none;
+        }
+
+        .ecElementContainer {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ecElementLabelAndField {
+            padding: 2px;
+            position: relative;
+
+        }
+
+        .ecCCAddess {
+            padding: 2px;
+            position: absolute;
+            top: 5px;
+            right: 30px;
+            width: 40%;
+            color: #3C5391;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .ecBtn {
+            padding: 10px !important;
+            color: #ffffff !important;
+            background-color: #295392 !important;
+            border-radius: 5px !important;
+            border: transparent !important;
+        }
+
+        .ecBtn:hover {
+            opacity: 0.8;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        @-webkit-keyframes spin {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg)
+            }
+        }
+
+        @-moz-keyframes spin {
+            from {
+                -moz-transform: rotate(0deg);
+            }
+            to {
+                -moz-transform: rotate(360deg)
+            }
+        }
+
+        .spinner {
+            position: absolute;
+            border-radius: 100%;
+            border: 4px solid #bbb;
+            border-top: 4px solid #004386;
+            border-bottom: 4px solid #004386;
+            height: 15px;
+            width: 15px;
+            animation: spin 0.7s linear infinite;
+            top: 9px;
+            left: 27%;
+        }
+
+        .ecPillContainer {
+            margin-top: 10px;
+            float: left;
+        }
+
+        .ecPill {
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 20px;
+            border: transparent;
+            width: 10%;
+            overflow: hidden;
+            height: 5px;
+            background-color: #0073e6;
+            color: #ffffff;
+            margin-right: 5px;
+        }
+
+        .ecPillRemove {
+            text-decoration: none !important;
+            color: #ffffff !important;
+        }
+
+        .ecTempContactList {
+            background-color: #fff;
+            padding: 5px;
+            max-height: 350px;
+            border: 1px solid lightgray;
+            border-radius: 4px;
+            width: 60%;
+            overflow-y: auto;
+        }
+
+        .ecTempContactContainer {
+            margin-bottom: 10px;
+            padding: 5px;
+            position: relative;
+        }
+
+        .ecTempContactContainer:hover {
+            cursor: pointer;
+
+            background-color: #dddddd;
+        }
+
+        .ecTempContactName {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555555;
+        }
+
+        .ecTempContactEmail {
+            font-size: 13px;
+            color: #999999;
+        }
+
+        .ecIcon {
+            margin-left: 30px;
+            cursor: pointer;
+        }
+
+        .ecCCContact {
+            padding: 2px;
+            position: absolute;
+            top: 15px;
+            right: 30px;
+            width: 0%;
+            color: #3C5391;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .spinnerStatuscontainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            Top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .spinnerStatus {
+            display: block;
+            position: relative;
+            border-radius: 100%;
+            border-top: 7px solid transparent;
+            border-left: 7px solid #529312;
+            border-right: 7px solid #529312;
+            border-bottom: 7px solid #529312;
+            height: 65px;
+            width: 65px;
+            animation: spin 0.7s linear infinite;
+        }
+
+        .ecInputFileLabel {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 20px;
+            padding-right: 20px;
+            background-color: #32548E;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 4px;
+            border: 1px solid #32548E;
+            transition: .5s all;
+            overflow: hidden;
+            max-width: 200px;
+            text-overflow: ellipsis;
+            text-align: center;
+            display: inline-block;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .ecInputFileLabel:hover {
+            background-color: #fff;
+            color: #32548E;
+            border: 1px solid #32548E;
+            transition: .5s all;
+            cursor: pointer;
+        }
+
+        .ecAttachmentList {
+            margin-bottom: 15px;
+        }
+
+        .ecElementTitleLabel {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .ecAttContainer {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 860px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            max-width: 1000px;
+            flex-wrap: wrap;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        input[type='file']{
+            width: 0px;
+        }
+
+        .tooltip {
+        position: relative;
+        display: inline-block;
+        /*   border-bottom: 1px dotted black; */
+        }
+
+        .tooltip .tooltiptext {
+        visibility: hidden;
+        min-width: 220px;
+        max-width: 600px;
+        font-size: 12px;
+        /*   max-width: 100%; */
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        /* Position the tooltip */
+        position: absolute;
+        top: 40px;
+        left: 0px;
+        overflow-wrap: break-word !important;
+        
+        }
+
+        .tooltip:hover .tooltiptext {
+        visibility: visible;
+        z-index: 999;
+        }
+
+        .ec__link {
+            color: #428bca !important;
+            text-decoration: none;
+            border: 0px;
+            background-color: transparent;
+        }
+    </style>
+
+    <body class="slds-scope">
+        <apex:form >
+            <apex:actionFunction name="AccessAttachmentOrGoback" action="{!AccessAttachmentOrGoback}"></apex:actionFunction>
+            <apex:actionFunction name="SendEmail" action="{!SendEmail}" status="" />
+            <apex:actionStatus id="statusSpinner">
+                <apex:facet name="start">
+                    <div class="spinnerStatuscontainer" id="spinnerStatuscontainer">
+                        <div class="spinnerStatus" id="spinnerStatus"></div>
+                    </div>
+                </apex:facet>
+            </apex:actionStatus>
+            <div class="ecContainer">
+                <div class="ecContainerRowDirection">
+                    <div class="ecElement ecPanel">
+                        <div class="ecElement">
+                            <apex:outputPanel id="emailList">
+                                <apex:outputPanel >
+                                    <div class="ecElementLabelAndField ecElementTitleLabel">To</div>
+                                    <apex:repeat value="{!contactsEmails}" var="ce">
+                                        <div class="ecPillContainer">
+                                            <span class="ecPill">{!ce.name}
+                                            </span>
+                                        </div>
+                                    </apex:repeat>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                        </div>
+
+                        <apex:variable var="CCvar" value="" rendered="{!ccContactsEmails.size > 0}">
+                            <div class="ecElement" style="margin-top: 50px;">
+                                <apex:outputPanel id="emailCCList">
+                                    <apex:outputPanel >
+                                        <div class="ecElementLabelAndField ecElementTitleLabel">CC</div>
+                                        <apex:repeat value="{!ccContactsEmails}" var="ccCE">
+                                            <div class="ecPillContainer">
+                                                <span class="ecPill">{!ccCE.name}</span>
+                                            </div>
+                                        </apex:repeat>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </div>
+                        </apex:variable>
+
+                        <div class="ecElement" style="margin-top: 50px;">
+                            <div class="ecElementLabelAndField ecElementTitleLabel">Subject</div>
+                            <div class="ecElementLabelAndField">{!ecSubject}</div>
+                        </div>
+
+                        <div class="ecElement" style="margin-top: 20px;">
+                            <div class="ecElementLabelAndField ecElementTitleLabel">Attachments</div>
+                        </div>
+
+                        <div class="ecElement ecPanel ecAttContainer">
+
+                            <div data-id="att1-input" class="ecElement" id="att">
+                                <div class="tooltip">
+                                    <span data-id="att1-tooltip" class="tooltiptext">-- No File Selected --</span>
+                                    <apex:outputLabel for="att1" styleclass="ecInputFileLabel" html-data-id="att1-lbl">Choose File</apex:outputLabel>
+                                </div>
+                                <apex:inputFile fileName="{!tempHDNAtt.name}" value="{!tempHDNAtt.body}" id="att1" onchange="GetFileName(this.value,'att1-lbl','att1-tooltip');"
+                                    style="opacity: 0;" />
+                            </div>
+                        
+                        
+                            <div id="att2" class="ecElement" data-id="att2-input">
+
+                                <div class="tooltip">
+                                    <span data-id="att2-tooltip" class="tooltiptext">-- No File Selected --</span>
+                                    <apex:outputLabel for="att2" styleclass="ecInputFileLabel" html-data-id="att2-lbl">Choose File</apex:outputLabel>
+                                </div>
+                                <apex:inputFile value="{!att2.body}" fileName="{!att2.name}" id="att2" onchange="GetFileName(this.value,'att2-lbl','att2-tooltip');"
+                                    style="opacity: 0;" />
+                            </div>
+                        
+                            <div id="att3" class="ecElement" data-id="att3-input">
+
+                                <div class="tooltip">
+                                    <span data-id="att3-tooltip" class="tooltiptext">-- No File Selected --</span>
+                                    <apex:outputLabel for="att3" styleclass="ecInputFileLabel" html-data-id="att3-lbl">Choose File</apex:outputLabel>
+                                </div>
+                                <apex:inputFile value="{!att3.body}" fileName="{!att3.name}" id="att3" onchange="GetFileName(this.value,'att3-lbl','att3-tooltip' );"
+                                    style="opacity: 0;" />
+                            </div>
+                        
+                            <div id="att4" class="ecElement" data-id="att4-input">
+                                <div class="tooltip">
+                                    <span data-id="att4-tooltip" class="tooltiptext">-- No File Selected --</span>
+                                    <apex:outputLabel for="att4" styleclass="ecInputFileLabel" html-data-id="att4-lbl">Choose File</apex:outputLabel>
+                                </div>
+                                <apex:inputFile value="{!att4.body}" fileName="{!att4.name}" id="att4" onchange="GetFileName(this.value,'att4-lbl','att4-tooltip' );"
+                                    style="opacity: 0;" />
+                            </div>
+                        
+                            <div id="att5" class="ecElement" data-id="att5-input">
+                                <div class="tooltip">
+                                    <span data-id="att5-tooltip" class="tooltiptext">-- No File Selected --</span>
+                                    <apex:outputLabel for="att5" styleclass="ecInputFileLabel" html-data-id="att5-lbl">Choose File</apex:outputLabel>
+                                </div>
+                                <apex:inputFile value="{!att5.body}" fileName="{!att5.name}" id="att5" onchange="GetFileName(this.value,'att5-lbl','att5-tooltip' );"
+                                    style="opacity: 0;" />
+                            </div>
+                        </div>
+
+                        <div id="ecElement" class="ecPanelEmailBody" style="margin-top: 20px;">
+                            <apex:outputText escape="false" value="{!ecBody}" />
+                        </div>
+                        <div id="buttonStrip" class="ecElement">
+                            <input type="button" class="ec__link" value="Go Back" onclick="AccessAttachmentOrGoback();" />
+                            <input type="button" class="ecBtn" value="Send Email" onclick="SendEmail();" style="margin-left: 20px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </apex:form>
+    </body>
+
+    <script>
+        function GetFileName(input, attId, attTooltip) {
+            // Clean File's name
+            if (input != null && input != '') {
+                input = input.replace(/.*[\/\\]/, '');
+                input = input.match(/(.+?)(\.[^.]*$|$)/)[0];
+            }
+
+            // Assign file's name to label
+            let lbl = document.querySelector('[data-id=' + attId + ']');
+
+            if(input !== ''){
+                lbl.innerHTML = input;
+                document.querySelector('[data-id=' + attTooltip + ']').innerHTML = input;
+            }else{
+                lbl.innerHTML = 'Choose File';
+                document.querySelector('[data-id=' + attTooltip + ']').innerHTML = '-- No File Selected --';
+            }
+        }
+        function toggleInputFile(att) {
+            let inputFile = document.querySelector('[data-id=' + att + ']');
+            inputFile.classList.toggle('hide');
+        }
+    </script>
+
+
+
+    </html>
+
+
+
+
+
+
+</apex:page>

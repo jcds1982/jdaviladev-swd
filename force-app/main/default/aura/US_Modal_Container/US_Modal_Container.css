@@ -1,0 +1,10 @@
+/**
+ * Created by julioda on 9/15/17.
+ */
+.THIS.Modal__container{
+    width: 70%;
+    height: 80%;
+    background-color: #ffffff;
+    border: 0px solid;
+    border-radius: 6px;
+}

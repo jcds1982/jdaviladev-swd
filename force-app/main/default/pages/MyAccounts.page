@@ -1,0 +1,17 @@
+<apex:page showHeader="false" sidebar="false" standardController="Account" extensions="MyAccounts_Controller">
+	<apex:sectionHeader title="MyHeaderTitle" subtitle="MyHeaderSubTitle" />
+	<apex:pageBlock title="MyPageBlockTitle">
+		<apex:pageBlockButtons location="top">
+			
+		</apex:pageBlockButtons>
+		<apex:pageBlockSection title="MyPageBlockSectionTitle">
+		thia is a test...
+		</apex:pageBlockSection>
+	</apex:pageBlock>
+
+
+	
+	
+    
+    <chatter:newsfeed rendered="true"/>
+</apex:page>

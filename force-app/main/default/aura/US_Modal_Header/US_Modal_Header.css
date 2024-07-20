@@ -1,0 +1,18 @@
+/**
+ * Created by julioda on 9/15/17.
+ */
+.THIS.Modal__header_background{
+    background-color: #529412;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height: 100%;
+}
+
+.THIS .Modal__Header_Title{
+
+    padding: 10px;
+    color: #fff;
+    font-size: 16px;
+
+
+}

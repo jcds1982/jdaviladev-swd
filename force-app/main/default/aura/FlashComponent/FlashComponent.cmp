@@ -1,0 +1,13 @@
+<aura:component >
+    <div class="roundContainer">
+        <p class="flashing">Hello World</p> 
+    </div>
+	
+    
+    
+    <div class="ModalBackground">
+    	<div class="Modal-Main-Container"> Test 12345</div>
+    
+    
+    </div>
+</aura:component>

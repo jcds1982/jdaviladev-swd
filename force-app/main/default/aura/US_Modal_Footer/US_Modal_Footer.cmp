@@ -1,0 +1,12 @@
+<!--
+ - Created by julioda on 9/15/17.
+ -->
+
+<aura:component description="US_Modal_Footer">
+
+    <div class="Modal__Footer_background">
+        <div class="Modal__Footer_content">
+            Footer goes here
+        </div>
+    </div>
+</aura:component>

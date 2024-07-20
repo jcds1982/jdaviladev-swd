@@ -1,0 +1,11 @@
+.THIS .slds-th__action-button{
+    display: none !important;
+}
+
+.THIS tbody th:first-child{  
+  color: #197610 !important;
+}
+
+.THIS th[data-label='Account Name']{
+    color: green;
+}

@@ -1,0 +1,63 @@
+<!--
+ - Created by julioda on 2/5/19.
+ -->
+
+<aura:component description="ProgressIndicator">
+    <!--PROGRESS INDICATOR - BASE -->
+    <aura:attribute type="String" name="currentStep" default="1" />
+
+    <br/>
+    <div class="slds-text-heading_large">Progress Indicator</div>
+    <br/>
+    <br/>
+    <div class="slds-grid">
+
+        <div class="slds-col slds-size_1-of-12"></div>
+        <div class="slds-col slds-size_10-of-12">
+            <lightning:progressIndicator currentStep="{!v.currentStep}" type="base" hasError="true" variant="base">
+                <lightning:progressStep label="Service Information" value="1"/>
+                <lightning:progressStep label="Contact Information" value="2" onclick="{!c.doSomething}" />
+                <lightning:progressStep label="Company Information" value="3"/>
+                <lightning:progressStep label="Director/Officers" value="4"/>
+                <lightning:progressStep label="Register Agent" value="5"/>
+                <lightning:progressStep label="EIN" value="6"/>
+                <lightning:progressStep label="Additional Services" value="7"/>
+            </lightning:progressIndicator>
+        </div>
+        <div class="slds-col slds-size_1-of-12"></div>
+    </div>
+    <!-- END - PROGRESS INDICATOR - BASE -->
+    <br/>
+    <br/>
+    <br/>
+    <!-- PROGRESS INDICATOR - PATH -->
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-12"></div>
+        <div class="slds-col slds-size_10-of-12">
+            <lightning:progressIndicator currentStep="{!v.currentStep}" type="path" variant="base">
+                <lightning:progressStep label="Service Information" value="1"/>
+                <lightning:progressStep label="Contact Information" value="2" onclick="{!c.doSomething}" />
+                <lightning:progressStep label="Company Information" value="3"/>
+                <lightning:progressStep label="Director/Officers" value="4"/>
+                <lightning:progressStep label="Register Agent" value="5"/>
+                <lightning:progressStep label="EIN" value="6"/>
+                <lightning:progressStep label="Additional Services" value="7"/>
+            </lightning:progressIndicator>
+        </div>
+        <div class="slds-col slds-size_1-of-12"></div>
+    </div>
+    <!-- END - PROGRESS INDICATOR - PATH -->
+
+    <br/>
+
+    <!-- NAVIGATION CONTROLS -->
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-12"></div>
+        <div class="slds-col slds-size_10-of-12">
+            <lightning:button name="Back" type="button" onclick="{!c.ChangeStage}" value="Back" label="Back" />
+            <lightning:button name="Next" type="button" onclick="{!c.ChangeStage}" value="Next" label="Next" />
+        </div>
+        <div class="slds-col slds-size_1-of-12"></div>
+    </div>
+    <!-- END - NAVIGATION CONTROLS -->
+</aura:component>

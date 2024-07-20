@@ -1,0 +1,18 @@
+.THIS {
+    
+    background-color: white;
+}
+
+.THIS.blue{
+    background-color: blue;
+    width: 50px;
+    color: white;
+}
+
+.THIS.red{
+      width: 150px;
+      height: 220px;
+      background-color: grey;
+      box-shadow: 10px 10px 5px #888888;
+      
+}
