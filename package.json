@@ -1,5 +1,5 @@
 {
-  "name": "salesforce-app",
+  "name": "jdavila-swd",
   "private": true,
   "version": "1.0.0",
   "description": "Salesforce App",
@@ -37,5 +37,8 @@
     "**/{aura,lwc}/**/*.js": [
       "eslint"
     ]
-  }
+  },
+  "main": "jest.config.js",
+  "author": "",
+  "license": "ISC"
 }
